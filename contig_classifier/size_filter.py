@@ -1,4 +1,3 @@
-import Bio
 from Bio.SeqIO.FastaIO import SimpleFastaParser
 
 

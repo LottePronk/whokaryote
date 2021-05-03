@@ -2,8 +2,6 @@ from contig_classifier import *
 import argparse
 from pathlib import Path
 
-# @TODO: Integrate the size filter into the pipeline.
-
 parser = argparse.ArgumentParser("Classify metagenomic contigs as eukaryotic or prokaryotic")
 parser.add_argument("--contigs", help="The path to your contigs file. It should be one multifasta.")
 parser.add_argument("--outdir", help="Specify the path to your preferred output directory. No / at the end.")
@@ -30,7 +28,7 @@ if not args.prodigal_file:
 
     if not args.test and not args.train:
         print("Calculating features...")
-        calc_features(contig_file)
+        calc_features(contig_file, args.outdir)
         print("Calculating features successful.")
 
     if args.test:
@@ -44,27 +42,21 @@ if not args.prodigal_file:
         print("Training successful...")
 
 if args.prodigal_file:
-    if ".gff" in args.prodigal_file:
-        print("Calculating features from GFF file...")
-        calc_features_gff(args.prodigal_file)
-        print("Calculating features from GFF file successful.")
 
-    if ".genes" in args.prodigal_file:
+    print("Calculating features from gene coordinates file...")
+    if not args.test and not args.train:
+        calc_features(args.prodigal_file, args.outdir)
+        print("Calculating features successful.")
 
-        print("Calculating features from gene coordinates file...")
-        if not args.test and not args.train:
-            calc_features(args.prodigal_file)
-            print("Calculating features successful.")
+    if args.test:
+        print("Testing classifier on dataset with known taxonomy...")
+        calc_test_features(args.prodigal_file, args.outdir)
+        print("Testing successful. Check the output files.")
 
-        if args.test:
-            print("Testing classifier on dataset with known taxonomy...")
-            calc_test_features(args.prodigal_file, args.outdir)
-            print("Testing successful. Check the output files.")
-
-        if args.train:
-            print("Training a new classifier...")
-            calc_train_features(args.prodigal_file, args.outdir)
-            print("Training successful...")
+    if args.train:
+        print("Training a new classifier...")
+        calc_train_features(args.prodigal_file, args.outdir)
+        print("Training successful...")
 
 if not args.test and not args.train:
     print("Predicting contig class...")

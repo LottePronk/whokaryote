@@ -3,20 +3,18 @@
 """ A script that calculates the features of the contigs that are used in the classifier """
 
 import pandas as pd
-import statistics
 import numpy as np
-import sklearn
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import cross_val_score
 import seaborn as sn
 import matplotlib.pyplot as plt
 from sklearn import metrics
-import os
 import joblib
 from pathlib import Path
 
 contig_file = "unknown"
+
 
 def calc_train_features(contig_file, outdir):
     eukaryote_names = ["Phaseolus_vulgaris", "Puccinia_graminis", "Ustilago_maydis",
@@ -117,7 +115,7 @@ def calc_train_features(contig_file, outdir):
                         gene_length = int(gene[2]) - int(gene[1])
                         length.append(gene_length)
 
-                    density = sum(length) / (seqlength)
+                    density = sum(length) / seqlength
                     data_dict["gene_density"].append(density)
 
                     if len(length) != 0:
@@ -127,8 +125,6 @@ def calc_train_features(contig_file, outdir):
                     if len(length) == 0:
                         avglength = sum(length)
                         data_dict["gene_length"].append(avglength)
-
-                    gene_list = []
 
                 header = line
                 seqname = header.split(";")[2].split("=")[1].split(" ")[0]
@@ -211,7 +207,7 @@ def calc_train_features(contig_file, outdir):
                 gene_length = int(gene[2]) - int(gene[1])
                 length.append(gene_length)
 
-            density = sum(length) / (seqlength)
+            density = sum(length) / seqlength
             data_dict["gene_density"].append(density)
 
             if len(length) != 0:
@@ -221,8 +217,6 @@ def calc_train_features(contig_file, outdir):
             if len(length) == 0:
                 avglength = sum(length)
                 data_dict["gene_length"].append(avglength)
-
-            gene_list = []
 
     df = pd.DataFrame(data_dict, columns=list(data_dict.keys()))
 
@@ -252,17 +246,12 @@ def calc_train_features(contig_file, outdir):
     features = features.dropna()
     print("Shape of features:", features.shape)
 
-    original_table = features  # Going to use this for later
-
     # Labels are the values we want to predict
     labels = np.array(features['kingdom'])
 
     # Remove the labels from the features
     # axis 1 refers to the columns
     features = features.drop('kingdom', axis=1)
-
-    # Saving feature names for later use
-    feature_list = list(features.columns)
 
     # Convert to numpy array
     features = np.array(features)
@@ -307,8 +296,8 @@ def calc_train_features(contig_file, outdir):
     print(metrics.classification_report(test_labels, predictions))
 
     print("Feature importances:")
-    featureImportances = pd.Series(rf.feature_importances_).sort_values(ascending=False)
-    print(featureImportances)
+    feature_importances = pd.Series(rf.feature_importances_).sort_values(ascending=False)
+    print(feature_importances)
 
     #  sn.barplot(x=round(featureImportances,4), y=featureImportances)
     #  plt.xlabel('Features Importance')
@@ -316,15 +305,13 @@ def calc_train_features(contig_file, outdir):
 
     # Predict the whole dataset
     print("Predicting whole dataset")
-    #all_predicted = rf.predict_proba(features)
+    # all_predicted = rf.predict_proba(features)
     class_predicted = rf.predict(features)
 
     #  print(all_predicted)
     original_nona['predicted'] = class_predicted
-    #df_new = pd.concat([original_nona, pd.DataFrame(class_predicted)], axis=1, join="inner")
+    # df_new = pd.concat([original_nona, pd.DataFrame(class_predicted)], axis=1, join="inner")
     original_nona.to_csv(outdir + '/results_RF_510500.csv')
 
     # save the RF model for later use
     joblib.dump(rf, str(Path(__file__).parents[1] / "data/random_forest510500.joblib"))
-
-

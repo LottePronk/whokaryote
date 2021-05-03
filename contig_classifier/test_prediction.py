@@ -118,7 +118,7 @@ def calc_test_features(contig_file, outdir):
                         gene_length = int(gene[2]) - int(gene[1])
                         length.append(gene_length)
 
-                    density = sum(length) / (seqlength)
+                    density = sum(length) / seqlength
                     data_dict["gene_density"].append(density)
 
                     if len(length) != 0:
@@ -128,8 +128,6 @@ def calc_test_features(contig_file, outdir):
                     if len(length) == 0:
                         avglength = sum(length)
                         data_dict["gene_length"].append(avglength)
-
-                    gene_list = []
 
                 header = line
                 seqname = header.split(";")[2].split("=")[1].split(" ")[0]
@@ -212,7 +210,7 @@ def calc_test_features(contig_file, outdir):
                 gene_length = int(gene[2]) - int(gene[1])
                 length.append(gene_length)
 
-            density = sum(length) / (seqlength)
+            density = sum(length) / seqlength
             data_dict["gene_density"].append(density)
 
             if len(length) != 0:
@@ -222,8 +220,6 @@ def calc_test_features(contig_file, outdir):
             if len(length) == 0:
                 avglength = sum(length)
                 data_dict["gene_length"].append(avglength)
-
-            gene_list = []
 
     print("contig", len(data_dict["contig"]))
     print("organism", len(data_dict["organism"]))

@@ -11,7 +11,6 @@ import seaborn as sn
 import matplotlib.pyplot as plt
 from sklearn import metrics
 import joblib
-from pathlib import Path
 from Bio.SeqIO.FastaIO import SimpleFastaParser
 from Bio import SeqIO
 from skbio import Sequence

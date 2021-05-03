@@ -1,9 +1,5 @@
 import pandas as pd
 import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import cross_val_score
-import seaborn as sn
 import matplotlib.pyplot as plt
 from sklearn import metrics
 import joblib
