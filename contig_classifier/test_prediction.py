@@ -7,6 +7,7 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 import joblib
+import os
 
 #  contig_file = "unknown"
 
@@ -256,7 +257,7 @@ def calc_test_features(contig_file, outdir):
     features = np.array(features)
     print("Shape of features:", features.shape)
 
-    loaded_rf = joblib.load(str(Path(__file__).parents[1] / "data/random_forest.joblib"))
+    loaded_rf = joblib.load(os.path.join(Path(__file__).parents[1], "data", "random_forest.joblib"))
 
     predictions = loaded_rf.predict(features)
 
@@ -272,15 +273,15 @@ def calc_test_features(contig_file, outdir):
     euk_namelist = original_nona[original_nona["predicted"] == 0]['contig'].to_list()
     prok_namelist = original_nona[original_nona["predicted"] == 1]['contig'].to_list()
 
-    original_nona.to_csv(outdir + "/test_predictions.csv", index=False)
+    original_nona.to_csv(os.path.join(outdir, "test_predictions.csv"), index=False)
 
-    file = open((outdir + "/eukaryote_contig_headers.txt"), 'w')
+    file = open(os.path.join(outdir, "eukaryote_contig_headers.txt"), 'w')
     for items in euk_namelist:
         file.writelines([items + '\n'])
 
     file.close()
 
-    file = open((outdir + "/prokaryote_contig_headers.txt"), 'w')
+    file = open(os.path.join(outdir, "prokaryote_contig_headers.txt"), 'w')
     for items in prok_namelist:
         file.writelines([items + '\n'])
 

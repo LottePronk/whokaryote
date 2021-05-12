@@ -8,6 +8,7 @@ from Bio.SeqIO.FastaIO import SimpleFastaParser
 from Bio import SeqIO
 from skbio import Sequence
 import itertools
+import os
 
 
 eukaryote_names = ["Arabidopsis_thaliana", "Candida_dubliniensis", "Drosophila_melanogaster", "Homo_sapiens",
@@ -71,7 +72,7 @@ kmer_df = pd.DataFrame(kmer_dict, columns=list(kmer_dict.keys()))
 
 ###########
 original_nona = kmer_df.copy(deep=True)
-original_nona.to_csv(outdir + '/results_g2_510500_kmers.csv')
+original_nona.to_csv(os.path.join(outdir, 'results_g2_510500_kmers.csv'))
 
 original_nona = original_nona.dropna()
 print("original nona", original_nona.shape)
@@ -90,7 +91,7 @@ features = features.drop('kingdom', axis=1)
 features = np.array(features)
 print("Shape of features:", features.shape)
 
-loaded_rf = joblib.load(str(Path(__file__).parents[1] / "data/random_forest_kmers_510500.joblib"))
+loaded_rf = joblib.load(os.path.join(Path(__file__).parents[1], "data", "random_forest_kmers_510500.joblib"))
 
 predictions = loaded_rf.predict(features)
 
@@ -104,4 +105,4 @@ print(metrics.classification_report(original_nona["kingdom"], original_nona["pre
 euk_namelist = original_nona[original_nona["predicted"] == 0]['contig'].to_list()
 prok_namelist = original_nona[original_nona["predicted"] == 1]['contig'].to_list()
 
-original_nona.to_csv(outdir + "/test_predictions_kmers.csv", index=False)
+original_nona.to_csv(os.path.join(outdir, "test_predictions_kmers.csv"), index=False)

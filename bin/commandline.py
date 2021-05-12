@@ -1,6 +1,7 @@
 from contig_classifier import *
 import argparse
 from pathlib import Path
+import os
 
 parser = argparse.ArgumentParser("Classify metagenomic contigs as eukaryotic or prokaryotic")
 parser.add_argument("--contigs", help="The path to your contigs file. It should be one multifasta.")
@@ -17,13 +18,13 @@ args = parser.parse_args()
 print("Removing contigs with length < 5000 bp...")
 size_filter(args.contigs, args.outdir, size=5000)
 
-filtered_contigs = str(args.outdir + "/contigs5000.fasta")
+filtered_contigs = os.path.join(args.outdir, "contigs5000.fasta")
 
 if not args.prodigal_file:
     print("Running prodigal...")
     run_prodigal(filtered_contigs, args.outdir)
     print("Prodigal successful. Saving gene coordinate file...")
-    contig_file = (args.outdir + "/contigs_genes.genes")
+    contig_file = os.path.join(args.outdir, "contigs_genes.genes")
     print("Gene coordinate file saved.")
 
     if not args.test and not args.train:
@@ -60,19 +61,19 @@ if args.prodigal_file:
 
 if not args.test and not args.train:
     print("Predicting contig class...")
-    feature_path = (args.outdir + "/featuretable.csv")
+    feature_path = os.path.join(args.outdir, "featuretable.csv")
     predict_class(feature_path, args.outdir)
     print("Prediction successful! See output directory.")
 
 if args.f:
     print("Writing eukaryotic and prokaryotic contigs to separate fasta files. This can take very long...")
-    script_path = str(Path(__file__).parents[1] / "contig_classifier/get_euk_prok_fasta.sh")
+    script_path = os.path.join(str(Path(__file__).parents[1]), "contig_classifier", "get_euk_prok_fasta.sh")
     input_file = args.contigs
-    output_file = (args.outdir + "/lin_contigs.fasta")
-    euk_headers = (args.outdir + "/eukaryote_contig_headers.txt")
-    prok_headers = (args.outdir + "/prokaryote_contig_headers.txt")
-    euk_fasta = args.outdir + "/eukaryotic_contigs.fasta"
-    prok_fasta = args.outdir + "/prokaryotic_contigs.fasta"
+    output_file = os.path.join(args.outdir, "lin_contigs.fasta")
+    euk_headers = os.path.join(args.outdir, "eukaryote_contig_headers.txt")
+    prok_headers = os.path.join(args.outdir, "prokaryote_contig_headers.txt")
+    euk_fasta = os.path.join(args.outdir, "eukaryotic_contigs.fasta")
+    prok_fasta = os.path.join(args.outdir, "prokaryotic_contigs.fasta")
 
     subprocess.run(
         ["bash", script_path,

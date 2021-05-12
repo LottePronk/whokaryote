@@ -11,6 +11,7 @@ import pandas as pd
 import numpy as np
 import joblib
 from pathlib import Path
+import os
 
 
 def predict_class(feature_path, outdir):
@@ -29,7 +30,7 @@ def predict_class(feature_path, outdir):
     features = np.array(features)
     print(features.shape)
 
-    loaded_rf = joblib.load(str(Path(__file__).parents[1] / "data/random_forest.joblib"))
+    loaded_rf = joblib.load(os.path.join(Path(__file__).parents[1], "data", "random_forest.joblib"))
 
     predictions = loaded_rf.predict(features)
 
@@ -40,15 +41,15 @@ def predict_class(feature_path, outdir):
 
     #  original_nona.to_csv(str(Path(__file__).parents[1] / "data/featuretable_predictions.csv"), index=False)
 
-    original_nona.to_csv(outdir + "/featuretable_predictions.csv", index=False)
+    original_nona.to_csv(os.path.join(outdir, "featuretable_predictions.csv"), index=False)
 
-    file = open((outdir + "/eukaryote_contig_headers.txt"), 'w')
+    file = open(os.path.join(outdir, "eukaryote_contig_headers.txt"), 'w')
     for items in euk_namelist:
         file.writelines([items + '\n'])
 
     file.close()
 
-    file = open((outdir + "/prokaryote_contig_headers.txt"), 'w')
+    file = open(os.path.join(outdir, "prokaryote_contig_headers.txt"), 'w')
     for items in prok_namelist:
         file.writelines([items + '\n'])
 

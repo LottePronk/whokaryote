@@ -1,10 +1,11 @@
 import sys
 from Bio.SeqIO.FastaIO import SimpleFastaParser
+import os
 
 
 def size_filter(contig_file, outdir, size):
     with open(contig_file) as in_handle:
-        with open((outdir + "/contigs5000.fasta"), 'w', newline='') as filtered_contigs:
+        with open((os.path.join(outdir, "contigs5000.fasta")), 'w', newline='') as filtered_contigs:
             total_contigs = 0
             kept_contigs = 0
             removed_contigs = 0

@@ -2,6 +2,7 @@
 """ This script calculates the features needed for the classifier. It uses the gene coordinate file from prodigal. """
 import pandas as pd
 import numpy as np
+import os
 
 
 def add_features(dictionary, genelist, filetype, seqlength):
@@ -156,4 +157,4 @@ def calc_features(contig_file, outfile):
     # Saving the dictionary to a dataframe that will be used for the classifier:
     df = pd.DataFrame(data_dict, columns=list(data_dict.keys()))
 
-    df.to_csv(outfile + "/featuretable.csv", index=False)
+    df.to_csv(os.path.join(outfile, "featuretable.csv"), index=False)

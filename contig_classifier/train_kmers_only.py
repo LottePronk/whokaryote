@@ -15,6 +15,8 @@ from Bio.SeqIO.FastaIO import SimpleFastaParser
 from Bio import SeqIO
 from skbio import Sequence
 import itertools
+import os
+from pathlib import Path
 
 contig_fasta = "/Users/lottepronk/Documents/Projects/metatoolkit/Data/510500/output_classifier/contigs5000.fasta"
 outdir = "/Users/lottepronk/Documents/Projects/metatoolkit/Data/510500/kmer_classifier"
@@ -84,7 +86,7 @@ kmer_df = pd.DataFrame(kmer_dict, columns=list(kmer_dict.keys()))
 
 ###########
 original_nona = kmer_df.copy(deep=True)
-original_nona.to_csv(outdir + '/results_RF_510500_kmers.csv')
+original_nona.to_csv(os.path.join(outdir, 'results_RF_510500_kmers.csv'))
 
 original_nona = original_nona.dropna()
 print("original nona", original_nona.shape)
@@ -155,7 +157,7 @@ print('Mean Absolute Error:', round(np.mean(errors), 2), 'degrees.')
 
 confusion_matrix = pd.crosstab(test_labels, predictions, rownames=['Actual'], colnames=['Predicted'])
 fig = sn.heatmap(confusion_matrix, annot=True)
-fig.figure.savefig(str(outdir + '/RF_confusionmatrix_kmers_510500.png'))
+fig.figure.savefig(os.path.join(outdir, 'RF_confusionmatrix_kmers_510500.png'))
 
 print('Accuracy: ', metrics.accuracy_score(test_labels, predictions))
 plt.show()
@@ -172,10 +174,8 @@ class_predicted = rf.predict(features)
 
 #  print(all_predicted)
 original_nona['predicted'] = class_predicted
-#df_new = pd.concat([original_nona, pd.DataFrame(class_predicted)], axis=1, join="inner")
-original_nona.to_csv(outdir + '/results_RF_kmers_510500.csv')
+# df_new = pd.concat([original_nona, pd.DataFrame(class_predicted)], axis=1, join="inner")
+original_nona.to_csv(os.path.join(outdir, 'results_RF_kmers_510500.csv'))
 
 # save the RF model for later use
-joblib.dump(rf, outdir + "/random_forest_kmers_510500.joblib")
-
-
+joblib.dump(rf, os.path.join(Path(__file__).parents[1], "data", "random_forest_kmers_510500.joblib"))

@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 from sklearn import metrics
 import joblib
 from pathlib import Path
+import os
 
 contig_file = "unknown"
 
@@ -288,7 +289,7 @@ def calc_train_features(contig_file, outdir):
 
     confusion_matrix = pd.crosstab(test_labels, predictions, rownames=['Actual'], colnames=['Predicted'])
     fig = sn.heatmap(confusion_matrix, annot=True)
-    fig.figure.savefig(str(outdir + '/RF_confusionmatrix_510500_proba.png'))
+    fig.figure.savefig(os.path.join(outdir, 'RF_confusionmatrix_510500_proba.png'))
 
     print('Accuracy: ', metrics.accuracy_score(test_labels, predictions))
     plt.show()
@@ -311,7 +312,7 @@ def calc_train_features(contig_file, outdir):
     #  print(all_predicted)
     original_nona['predicted'] = class_predicted
     # df_new = pd.concat([original_nona, pd.DataFrame(class_predicted)], axis=1, join="inner")
-    original_nona.to_csv(outdir + '/results_RF_510500.csv')
+    original_nona.to_csv(os.path.join(outdir, 'results_RF_510500.csv'))
 
     # save the RF model for later use
-    joblib.dump(rf, str(Path(__file__).parents[1] / "data/random_forest510500.joblib"))
+    joblib.dump(rf, os.path.join(Path(__file__).parents[1], "data", "random_forest510500.joblib"))
