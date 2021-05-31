@@ -21,20 +21,20 @@ def calc_test_features(contig_file, outdir):
     #                     "Gemmatimonas_phototrophica", "Myxococcus_xanthus", "Nocardia_mangyaensis",
     #                     "Rickettsia_heilongjiangensis", "Sphingobacterium_lactis"]
 
-    eukaryote_names = ["Phaseolus_vulgaris", "Puccinia_graminis", "Ustilago_maydis",
-                       "Dictyostelium_discoideum", "Saprolegnia_parasitica",
-                       "Amoebophrya_sp.", "Gigaspora_margarita", "Pyricularia_oryzae",
-                       "Fusarium_oxysporum", "Aspergillus_oryzae", "Beauveria_bassiana",
-                       "Phytophthora_parasitica", "Saccharomyces_cerevisiae"]
-
-    prokaryote_names = ["Gemmata_obscuriglobus", "Streptomyces_albidoflavus",
-                        "Candidatus_Prometheoarchaeum", "Clostridium_cellulovorans",
-                        "Methanobacterium_subterraneum", "TPA_asm:_Burkholderia",
-                        "Escherichia_coli", "Pseudomonas_protegens",
-                        "Flavobacterium_lindanitolerans", "Chitinophaga_rhizosphaerae",
-                        "Acidobacterium_capsulatum", "Methanococcus_maripaludis",
-                        "Nostoc_punctiforme", "Xanthomonas_sacchari",
-                        "Chloroflexus_aggregans", "Bacillus_thuringiensis"]
+    # eukaryote_names = ["Phaseolus_vulgaris", "Puccinia_graminis", "Ustilago_maydis",
+    #                    "Dictyostelium_discoideum", "Saprolegnia_parasitica",
+    #                    "Amoebophrya_sp.", "Gigaspora_margarita", "Pyricularia_oryzae",
+    #                    "Fusarium_oxysporum", "Aspergillus_oryzae", "Beauveria_bassiana",
+    #                    "Phytophthora_parasitica", "Saccharomyces_cerevisiae"]
+    #
+    # prokaryote_names = ["Gemmata_obscuriglobus", "Streptomyces_albidoflavus",
+    #                     "Candidatus_Prometheoarchaeum", "Clostridium_cellulovorans",
+    #                     "Methanobacterium_subterraneum", "TPA_asm:_Burkholderia",
+    #                     "Escherichia_coli", "Pseudomonas_protegens",
+    #                     "Flavobacterium_lindanitolerans", "Chitinophaga_rhizosphaerae",
+    #                     "Acidobacterium_capsulatum", "Methanococcus_maripaludis",
+    #                     "Nostoc_punctiforme", "Xanthomonas_sacchari",
+    #                     "Chloroflexus_aggregans", "Bacillus_thuringiensis"]
 
     data_dict = {"contig": [],
                  "organism": [],
@@ -134,12 +134,21 @@ def calc_test_features(contig_file, outdir):
                 seqname = header.split(";")[2].split("=")[1].split(" ")[0]
                 organism = "_".join(line.split(' ')[4:6])
                 seqlength = int(header.split(";")[1].split("=")[1])
+                domain = header.split('=')[3].split(' ')[0].split('_')[-1]
 
                 data_dict["contig"].append(seqname)
-                if organism[0:(len(organism) - 2)] in eukaryote_names:
+
+                if domain == 'eukaryote':
                     data_dict["kingdom"].append(0)
-                if organism[0:(len(organism) - 2)] in prokaryote_names:
+                if domain == 'prokaryote':
                     data_dict["kingdom"].append(1)
+
+                # if organism[0:(len(organism) - 2)] in eukaryote_names:
+                #     data_dict["kingdom"].append(0)
+                # if organism[0:(len(organism) - 2)] in prokaryote_names:
+                #     data_dict["kingdom"].append(1)
+
+
                 data_dict["organism"].append(organism)
                 data_dict["contig_length"].append(seqlength)
 
@@ -257,7 +266,7 @@ def calc_test_features(contig_file, outdir):
     features = np.array(features)
     print("Shape of features:", features.shape)
 
-    loaded_rf = joblib.load(os.path.join(Path(__file__).parents[1], "data", "random_forest.joblib"))
+    loaded_rf = joblib.load(os.path.join(Path(__file__).parents[1], "data", "random_forest510500_g3.joblib"))
 
     predictions = loaded_rf.predict(features)
 
