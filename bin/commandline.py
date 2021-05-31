@@ -12,6 +12,7 @@ parser.add_argument("--f", action='store_true', help="If you want new multifasta
                                                      "prokaryotes. This can take a long time.")
 parser.add_argument("--test", action='store_true', help="If you want to test it on a known dataset.")
 parser.add_argument("--train", action='store_true', help="For training an RF on your own dataset")
+#  @TODO: Add option for log file
 
 args = parser.parse_args()
 

@@ -267,6 +267,7 @@ def calc_test_features(contig_file, outdir):
     from sklearn import metrics
     print('Accuracy: ', metrics.accuracy_score(original_nona["kingdom"], original_nona["predicted"]))
     plt.show()
+    #  @TODO: write this information to a metrics.txt file
 
     print(metrics.classification_report(original_nona["kingdom"], original_nona["predicted"]))
 

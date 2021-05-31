@@ -1,12 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Mar 23 2021
-
-@author: lottepronk
-"""
-
-#  from calculate_features import calc_features
 import pandas as pd
 import numpy as np
 import joblib
@@ -38,8 +29,6 @@ def predict_class(feature_path, outdir):
 
     euk_namelist = original_nona[original_nona["predicted"] == 0]['contig'].to_list()
     prok_namelist = original_nona[original_nona["predicted"] == 1]['contig'].to_list()
-
-    #  original_nona.to_csv(str(Path(__file__).parents[1] / "data/featuretable_predictions.csv"), index=False)
 
     original_nona.to_csv(os.path.join(outdir, "featuretable_predictions.csv"), index=False)
 
