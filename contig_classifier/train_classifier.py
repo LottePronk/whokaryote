@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 """ A script that calculates the features of the contigs that are used in the classifier """
+#  @TODO: Write the RF metrics to a 'metrics.txt' file.
+#  @TODO: Generate unique identifiers for each training run (perhaps incl. date timestamp?)
 
 import pandas as pd
 import numpy as np
@@ -18,20 +20,20 @@ contig_file = "unknown"
 
 
 def calc_train_features(contig_file, outdir):
-    eukaryote_names = ["Phaseolus_vulgaris", "Puccinia_graminis", "Ustilago_maydis",
-                       "Dictyostelium_discoideum", "Saprolegnia_parasitica",
-                       "Amoebophrya_sp.", "Gigaspora_margarita", "Pyricularia_oryzae",
-                       "Fusarium_oxysporum", "Aspergillus_oryzae", "Beauveria_bassiana",
-                       "Phytophthora_parasitica", "Saccharomyces_cerevisiae"]
-
-    prokaryote_names = ["Gemmata_obscuriglobus", "Streptomyces_albidoflavus",
-                        "Candidatus_Prometheoarchaeum", "Clostridium_cellulovorans",
-                        "Methanobacterium_subterraneum", "TPA_asm:_Burkholderia",
-                        "Escherichia_coli", "Pseudomonas_protegens",
-                        "Flavobacterium_lindanitolerans", "Chitinophaga_rhizosphaerae",
-                        "Acidobacterium_capsulatum", "Methanococcus_maripaludis",
-                        "Nostoc_punctiforme", "Xanthomonas_sacchari",
-                        "Chloroflexus_aggregans", "Bacillus_thuringiensis"]
+    # eukaryote_names = ["Phaseolus_vulgaris", "Puccinia_graminis", "Ustilago_maydis",
+    #                    "Dictyostelium_discoideum", "Saprolegnia_parasitica",
+    #                    "Amoebophrya_sp.", "Gigaspora_margarita", "Pyricularia_oryzae",
+    #                    "Fusarium_oxysporum", "Aspergillus_oryzae", "Beauveria_bassiana",
+    #                    "Phytophthora_parasitica", "Saccharomyces_cerevisiae"]
+    #
+    # prokaryote_names = ["Gemmata_obscuriglobus", "Streptomyces_albidoflavus",
+    #                     "Candidatus_Prometheoarchaeum", "Clostridium_cellulovorans",
+    #                     "Methanobacterium_subterraneum", "TPA_asm:_Burkholderia",
+    #                     "Escherichia_coli", "Pseudomonas_protegens",
+    #                     "Flavobacterium_lindanitolerans", "Chitinophaga_rhizosphaerae",
+    #                     "Acidobacterium_capsulatum", "Methanococcus_maripaludis",
+    #                     "Nostoc_punctiforme", "Xanthomonas_sacchari",
+    #                     "Chloroflexus_aggregans", "Bacillus_thuringiensis"]
 
     data_dict = {"contig": [],
                  "organism": [],
@@ -52,7 +54,6 @@ def calc_train_features(contig_file, outdir):
         for line in coords_file:
 
             if line.startswith("# Seq"):
-                #  print(line)
 
                 if gene_list != "empty":  # This is the gene list from the previous contig
                     genes_same = 0  # <- <- or -> -> (++, --)
@@ -131,12 +132,20 @@ def calc_train_features(contig_file, outdir):
                 seqname = header.split(";")[2].split("=")[1].split(" ")[0]
                 organism = "_".join(line.split(' ')[4:6])
                 seqlength = int(header.split(";")[1].split("=")[1])
+                domain = header.split('=')[3].split(' ')[0].split('_')[-1]
 
                 data_dict["contig"].append(seqname)
-                if organism[0:(len(organism) - 2)] in eukaryote_names:
+
+                if domain == 'eukaryote':
                     data_dict["kingdom"].append(0)
-                if organism[0:(len(organism) - 2)] in prokaryote_names:
+                if domain == 'prokaryote':
                     data_dict["kingdom"].append(1)
+
+                # if organism[0:(len(organism) - 2)] in eukaryote_names:
+                #     data_dict["kingdom"].append(0)
+                # if organism[0:(len(organism) - 2)] in prokaryote_names:
+                #     data_dict["kingdom"].append(1)
+
                 data_dict["organism"].append(organism)
                 data_dict["contig_length"].append(seqlength)
 
@@ -289,7 +298,7 @@ def calc_train_features(contig_file, outdir):
 
     confusion_matrix = pd.crosstab(test_labels, predictions, rownames=['Actual'], colnames=['Predicted'])
     fig = sn.heatmap(confusion_matrix, annot=True)
-    fig.figure.savefig(os.path.join(outdir, 'RF_confusionmatrix_510500_proba.png'))
+    fig.figure.savefig(os.path.join(outdir, 'RF_confusionmatrix_510500_proba_g3.png'))
 
     print('Accuracy: ', metrics.accuracy_score(test_labels, predictions))
     plt.show()
@@ -312,7 +321,7 @@ def calc_train_features(contig_file, outdir):
     #  print(all_predicted)
     original_nona['predicted'] = class_predicted
     # df_new = pd.concat([original_nona, pd.DataFrame(class_predicted)], axis=1, join="inner")
-    original_nona.to_csv(os.path.join(outdir, 'results_RF_510500.csv'))
+    original_nona.to_csv(os.path.join(outdir, 'results_RF_510500_g3.csv'))
 
     # save the RF model for later use
-    joblib.dump(rf, os.path.join(Path(__file__).parents[1], "data", "random_forest510500.joblib"))
+    joblib.dump(rf, os.path.join(Path(__file__).parents[1], "data", "random_forest510500_g3.joblib"))
