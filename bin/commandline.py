@@ -17,31 +17,33 @@ parser.add_argument("--train", action='store_true', help="For training an RF on 
 args = parser.parse_args()
 
 print("Removing contigs with length < 5000 bp...")
-size_filter(args.contigs, args.outdir, size=5000)
 
-filtered_contigs = os.path.join(args.outdir, "contigs5000.fasta")
+if args.contigs:
+    size_filter(args.contigs, args.outdir, size=5000)
 
-if not args.prodigal_file:
-    print("Running prodigal...")
-    run_prodigal(filtered_contigs, args.outdir)
-    print("Prodigal successful. Saving gene coordinate file...")
-    contig_file = os.path.join(args.outdir, "contigs_genes.genes")
-    print("Gene coordinate file saved.")
+    filtered_contigs = os.path.join(args.outdir, "contigs5000.fasta")
 
-    if not args.test and not args.train:
-        print("Calculating features...")
-        calc_features(contig_file, args.outdir)
-        print("Calculating features successful.")
+    if not args.prodigal_file:
+        print("Running prodigal...")
+        run_prodigal(filtered_contigs, args.outdir)
+        print("Prodigal successful. Saving gene coordinate file...")
+        contig_file = os.path.join(args.outdir, "contigs_genes.genes")
+        print("Gene coordinate file saved.")
 
-    if args.test:
-        print("Calculating features and predicting test data...")
-        calc_test_features(contig_file, args.outdir)
-        print("Test successful...")
+        if not args.test and not args.train:
+            print("Calculating features...")
+            calc_features(contig_file, args.outdir)
+            print("Calculating features successful.")
 
-    if args.train:
-        print("Training a new classifier...")
-        calc_train_features(contig_file, args.outdir)
-        print("Training successful...")
+        if args.test:
+            print("Calculating features and predicting test data...")
+            calc_test_features(contig_file, args.outdir)
+            print("Test successful...")
+
+        if args.train:
+            print("Training a new classifier...")
+            calc_train_features(contig_file, args.outdir)
+            print("Training successful...")
 
 if args.prodigal_file:
 
