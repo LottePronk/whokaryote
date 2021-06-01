@@ -21,7 +21,7 @@ def predict_class(feature_path, outdir):
     features = np.array(features)
     print(features.shape)
 
-    loaded_rf = joblib.load(os.path.join(Path(__file__).parents[1], "data", "random_forest.joblib"))
+    loaded_rf = joblib.load(os.path.join(Path(__file__).parents[1], "data", "random_forest510500_g3.joblib"))
 
     predictions = loaded_rf.predict(features)
 
