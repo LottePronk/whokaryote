@@ -271,7 +271,8 @@ def calc_train_features(contig_file, outdir):
     # Split the data into training and testing sets
     print("Splitting data into training and testing sets")
     train_features, test_features, train_labels, test_labels = train_test_split(features, labels, test_size=0.30,
-                                                                                random_state=42)
+                                                                                random_state=42,
+                                                                                stratify=labels)
 
     print('Training Features Shape:', train_features.shape)
     print('Training Labels Shape:', train_labels.shape)
