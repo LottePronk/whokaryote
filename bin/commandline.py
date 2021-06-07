@@ -16,9 +16,8 @@ parser.add_argument("--train", action='store_true', help="For training an RF on 
 
 args = parser.parse_args()
 
-print("Removing contigs with length < 5000 bp...")
-
 if args.contigs:
+    print("Removing contigs with length < 5000 bp...")
     size_filter(args.contigs, args.outdir, size=5000)
 
     filtered_contigs = os.path.join(args.outdir, "contigs5000.fasta")

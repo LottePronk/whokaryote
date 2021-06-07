@@ -13,28 +13,6 @@ import os
 
 
 def calc_test_features(contig_file, outdir):
-    # eukaryote_names = ["Arabidopsis_thaliana", "Candida_dubliniensis", "Drosophila_melanogaster", "Homo_sapiens",
-    #                    "Neurospora_crassa", "Nosema_ceranae", "Physcomitrium_patens", "Synchytrium_microbalum",
-    #                    "Toxoplasma_gondii", "Tremella_mesenterica", "TPA_asm:_Arabidopsis", "Physcomitrella_patens"]
-    #
-    # prokaryote_names = ["Bacteroides_heparinolyticus", "Chlamydia_pecorum", "Deinococcus_radiodurans",
-    #                     "Gemmatimonas_phototrophica", "Myxococcus_xanthus", "Nocardia_mangyaensis",
-    #                     "Rickettsia_heilongjiangensis", "Sphingobacterium_lactis"]
-
-    # eukaryote_names = ["Phaseolus_vulgaris", "Puccinia_graminis", "Ustilago_maydis",
-    #                    "Dictyostelium_discoideum", "Saprolegnia_parasitica",
-    #                    "Amoebophrya_sp.", "Gigaspora_margarita", "Pyricularia_oryzae",
-    #                    "Fusarium_oxysporum", "Aspergillus_oryzae", "Beauveria_bassiana",
-    #                    "Phytophthora_parasitica", "Saccharomyces_cerevisiae"]
-    #
-    # prokaryote_names = ["Gemmata_obscuriglobus", "Streptomyces_albidoflavus",
-    #                     "Candidatus_Prometheoarchaeum", "Clostridium_cellulovorans",
-    #                     "Methanobacterium_subterraneum", "TPA_asm:_Burkholderia",
-    #                     "Escherichia_coli", "Pseudomonas_protegens",
-    #                     "Flavobacterium_lindanitolerans", "Chitinophaga_rhizosphaerae",
-    #                     "Acidobacterium_capsulatum", "Methanococcus_maripaludis",
-    #                     "Nostoc_punctiforme", "Xanthomonas_sacchari",
-    #                     "Chloroflexus_aggregans", "Bacillus_thuringiensis"]
 
     data_dict = {"contig": [],
                  "organism": [],
@@ -142,12 +120,6 @@ def calc_test_features(contig_file, outdir):
                     data_dict["kingdom"].append(0)
                 if domain == 'prokaryote':
                     data_dict["kingdom"].append(1)
-
-                # if organism[0:(len(organism) - 2)] in eukaryote_names:
-                #     data_dict["kingdom"].append(0)
-                # if organism[0:(len(organism) - 2)] in prokaryote_names:
-                #     data_dict["kingdom"].append(1)
-
 
                 data_dict["organism"].append(organism)
                 data_dict["contig_length"].append(seqlength)
