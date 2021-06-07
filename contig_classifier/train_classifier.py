@@ -325,4 +325,4 @@ def calc_train_features(contig_file, outdir):
     original_nona.to_csv(os.path.join(outdir, 'results_RF_510500_g3.csv'))
 
     # save the RF model for later use
-    joblib.dump(rf, os.path.join(Path(__file__).parents[1], "data", "random_forest510500_g3.joblib"))
+    joblib.dump(rf, os.path.join(Path(__file__).parents[1], "data", "random_forest510500_g3_3.joblib"))
