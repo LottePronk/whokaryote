@@ -19,6 +19,51 @@ import os
 contig_file = "unknown"
 
 
+def add_tiara(dataframe, outdir):
+    tiara_list = []
+
+    tiara = os.path.join(outdir, "tiara_pred.txt")
+
+    with open(tiara, newline='') as tiara_file:
+        for line in tiara_file:
+
+            if line.startswith("sequence_id"):
+                continue
+
+            all_line = line.strip().split("\t")
+
+            seq_id = all_line[0].split(" ")[0]
+
+            prediction = all_line[1]
+
+            if prediction == "eukarya":
+                prediction = "eukaryote"
+            elif prediction == "archaea" or prediction == "bacteria" or prediction == "prokarya":
+                prediction = "prokaryote"
+            else:
+                # . prediction == "organelle" or prediction == "unknown":
+                prediction = prediction
+
+            # . print(seq_id, prediction)
+
+            tiara_list.append([seq_id, prediction])
+
+    dataframe['tiara_pred'] = "other"
+
+    for header in tiara_list:
+
+        seq_id = header[0]
+
+        if seq_id not in dataframe['contig'].values:
+            pass
+
+        else:
+            predicted_class = header[1]
+            dataframe.loc[dataframe['contig'] == seq_id, 'tiara_pred'] = predicted_class
+
+    return dataframe
+
+
 def calc_train_features(contig_file, outdir):
     # eukaryote_names = ["Phaseolus_vulgaris", "Puccinia_graminis", "Ustilago_maydis",
     #                    "Dictyostelium_discoideum", "Saprolegnia_parasitica",
@@ -230,7 +275,9 @@ def calc_train_features(contig_file, outdir):
 
     df = pd.DataFrame(data_dict, columns=list(data_dict.keys()))
 
-    original_nona = df.copy(deep=True)
+    df_tiara = add_tiara(df, outdir)
+
+    original_nona = df_tiara.copy(deep=True)
 
     original_nona = original_nona.dropna()
     print("original nona", original_nona.shape)
@@ -299,7 +346,7 @@ def calc_train_features(contig_file, outdir):
 
     confusion_matrix = pd.crosstab(test_labels, predictions, rownames=['Actual'], colnames=['Predicted'])
     fig = sn.heatmap(confusion_matrix, annot=True)
-    fig.figure.savefig(os.path.join(outdir, 'RF_confusionmatrix_510500_proba_g3.png'))
+    fig.figure.savefig(os.path.join(outdir, 'RF_confusionmatrix_5100500_proba_g3_3_tiarapred.png'))
 
     print('Accuracy: ', metrics.accuracy_score(test_labels, predictions))
     plt.show()
@@ -322,7 +369,7 @@ def calc_train_features(contig_file, outdir):
     #  print(all_predicted)
     original_nona['predicted'] = class_predicted
     # df_new = pd.concat([original_nona, pd.DataFrame(class_predicted)], axis=1, join="inner")
-    original_nona.to_csv(os.path.join(outdir, 'results_RF_510500_g3.csv'))
+    original_nona.to_csv(os.path.join(outdir, 'results_RF_5100500_g3_3_tiara.csv'))
 
     # save the RF model for later use
-    joblib.dump(rf, os.path.join(Path(__file__).parents[1], "data", "random_forest510500_g3_3.joblib"))
+    joblib.dump(rf, os.path.join(Path(__file__).parents[1], "data", "random_forest5100500_g3_3_tiarapred.joblib"))

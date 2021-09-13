@@ -4,3 +4,4 @@ from contig_classifier.predict_class import *
 from contig_classifier.test_prediction import *
 from contig_classifier.size_filter import *
 from contig_classifier.train_classifier import *
+from contig_classifier.run_tiara import *

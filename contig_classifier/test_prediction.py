@@ -218,6 +218,8 @@ def calc_test_features(contig_file, outdir):
 
     df = pd.DataFrame(data_dict, columns=list(data_dict.keys()))
 
+    df.to_csv(os.path.join(outdir, "df_features_noprediction.csv"), index=False)
+
     original_nona = df.copy(deep=True)
     original_nona = original_nona.dropna()
     print("original nona", original_nona.shape)
@@ -238,7 +240,7 @@ def calc_test_features(contig_file, outdir):
     features = np.array(features)
     print("Shape of features:", features.shape)
 
-    loaded_rf = joblib.load(os.path.join(Path(__file__).parents[1], "data", "random_forest510500_g3.joblib"))
+    loaded_rf = joblib.load(os.path.join(Path(__file__).parents[1], "data", "random_forest510500_g3_3.joblib"))
 
     predictions = loaded_rf.predict(features)
 

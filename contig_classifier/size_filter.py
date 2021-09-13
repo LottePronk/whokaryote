@@ -4,8 +4,9 @@ import os
 
 
 def size_filter(contig_file, outdir, size):
+    file_name = "contigs" + str(size) + ".fasta"
     with open(contig_file) as in_handle:
-        with open((os.path.join(outdir, "contigs5000.fasta")), 'w', newline='') as filtered_contigs:
+        with open((os.path.join(outdir, file_name)), 'w', newline='') as filtered_contigs:
             total_contigs = 0
             kept_contigs = 0
             removed_contigs = 0
@@ -20,8 +21,8 @@ def size_filter(contig_file, outdir, size):
                     removed_contigs += 1
 
             print("Total contigs checked:\t" + str(total_contigs),
-                  '\nNumber of contigs >= 5000 bp:\t' + str(kept_contigs),
-                  '\nNumber of contigs < 5000 bp and removed:\t' + str(removed_contigs))
+                  '\nNumber of contigs >=' + size + 'bp:\t' + str(kept_contigs),
+                  '\nNumber of contigs <' + size + 'bp and removed:\t' + str(removed_contigs))
 
             if kept_contigs == 0:
-                sys.exit("No contigs longer than 5000 bp detected.\nYour contigs cannot be classified.")
+                sys.exit("No contigs longer than" + size + "bp detected.\nYour contigs cannot be classified.")
