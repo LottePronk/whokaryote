@@ -21,8 +21,8 @@ def size_filter(contig_file, outdir, size):
                     removed_contigs += 1
 
             print("Total contigs checked:\t" + str(total_contigs),
-                  '\nNumber of contigs >=' + size + 'bp:\t' + str(kept_contigs),
-                  '\nNumber of contigs <' + size + 'bp and removed:\t' + str(removed_contigs))
+                  '\nNumber of contigs >=' + str(size) + 'bp:\t' + str(kept_contigs),
+                  '\nNumber of contigs <' + str(size) + 'bp and removed:\t' + str(removed_contigs))
 
             if kept_contigs == 0:
-                sys.exit("No contigs longer than" + size + "bp detected.\nYour contigs cannot be classified.")
+                sys.exit("No contigs longer than" + str(size) + "bp detected.\nYour contigs cannot be classified.")
