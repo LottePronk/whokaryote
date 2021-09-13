@@ -37,9 +37,9 @@ def add_tiara(dataframe, outdir):
             prediction = all_line[1]
 
             if prediction == "eukarya":
-                prediction = "eukaryote"
+                prediction = 0
             elif prediction == "archaea" or prediction == "bacteria" or prediction == "prokarya":
-                prediction = "prokaryote"
+                prediction = 1
             else:
                 # . prediction == "organelle" or prediction == "unknown":
                 prediction = prediction

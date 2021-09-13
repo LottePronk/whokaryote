@@ -52,22 +52,22 @@ if args.contigs:
             calc_train_features(contig_file, args.outdir)
             print("Training successful...")
 
-if args.prodigal_file:
+    if args.prodigal_file:
 
-    print("Calculating features from gene coordinates file...")
-    if not args.test and not args.train:
-        calc_features(args.prodigal_file, args.outdir)
-        print("Calculating features successful.")
+        print("Calculating features from gene coordinates file...")
+        if not args.test and not args.train:
+            calc_features(args.prodigal_file, args.outdir)
+            print("Calculating features successful.")
 
-    if args.test:
-        print("Testing classifier on dataset with known taxonomy...")
-        calc_test_features(args.prodigal_file, args.outdir)
-        print("Testing successful. Check the output files.")
+        if args.test:
+            print("Testing classifier on dataset with known taxonomy...")
+            calc_test_features(args.prodigal_file, args.outdir)
+            print("Testing successful. Check the output files.")
 
-    if args.train:
-        print("Training a new classifier...")
-        calc_train_features(args.prodigal_file, args.outdir)
-        print("Training successful...")
+        if args.train:
+            print("Training a new classifier...")
+            calc_train_features(args.prodigal_file, args.outdir)
+            print("Training successful...")
 
 if not args.test and not args.train:
     print("Predicting contig class...")
