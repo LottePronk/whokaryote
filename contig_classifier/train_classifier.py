@@ -48,7 +48,7 @@ def add_tiara(dataframe, outdir):
 
             tiara_list.append([seq_id, prediction])
 
-    dataframe['tiara_pred'] = "other"
+    dataframe['tiara_pred'] = np.nan
 
     for header in tiara_list:
 
@@ -274,6 +274,8 @@ def calc_train_features(contig_file, outdir):
                 data_dict["gene_length"].append(avglength)
 
     df = pd.DataFrame(data_dict, columns=list(data_dict.keys()))
+
+    df.iloc[:, 1] = df.iloc[:, 1].str.lstrip("\"")
 
     df_tiara = add_tiara(df, outdir)
 
