@@ -42,7 +42,7 @@ def add_tiara(dataframe, outdir):
                 prediction = 1
             else:
                 # . prediction == "organelle" or prediction == "unknown":
-                prediction = prediction
+                prediction = 2
 
             # . print(seq_id, prediction)
 
