@@ -174,7 +174,7 @@ def calc_train_features(contig_file, outdir):
                         data_dict["gene_length"].append(avglength)
 
                 header = line
-                seqname = header.split(";")[2].split("=")[1].split(" ")[0]
+                seqname = header.split(";")[2].split('"')[1].split(" ")[0]
                 organism = "_".join(line.split(' ')[4:6])
                 seqlength = int(header.split(";")[1].split("=")[1])
                 domain = header.split('=')[3].split(' ')[0].split('_')[-1]
@@ -274,8 +274,6 @@ def calc_train_features(contig_file, outdir):
                 data_dict["gene_length"].append(avglength)
 
     df = pd.DataFrame(data_dict, columns=list(data_dict.keys()))
-
-    df.iloc[:, 1] = df.iloc[:, 1].str.lstrip("\"")
 
     df_tiara = add_tiara(df, outdir)
 
