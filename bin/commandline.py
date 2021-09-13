@@ -27,6 +27,7 @@ if args.contigs:
 
     filtered_contigs = os.path.join(args.outdir, fasta_name)
 
+    print("Running tiara first...")
     run_tiara(filtered_contigs, args.outdir)
 
     if not args.prodigal_file:
