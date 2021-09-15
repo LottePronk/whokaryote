@@ -5,7 +5,14 @@ from pathlib import Path
 import os
 
 
-def predict_class(feature_path, outdir):
+def predict_class(feature_path, outdir, model):
+
+    if model == "T":
+        print("Using tiara-integrated model to predict contig class...")
+        model_file = "random_forest5100500_g3_3_tiarapred.joblib"
+    else:
+        print("Using standard model to predict contig class...")
+        model_file = "random_forest510500_g3_3.joblib"
 
     feature_df = pd.read_csv(feature_path)
 
@@ -21,7 +28,7 @@ def predict_class(feature_path, outdir):
     features = np.array(features)
     print(features.shape)
 
-    loaded_rf = joblib.load(os.path.join(Path(__file__).parents[1], "data", "random_forest510500_g3_3.joblib"))
+    loaded_rf = joblib.load(os.path.join(Path(__file__).parents[1], "data", model_file))
 
     predictions = loaded_rf.predict(features)
 
@@ -30,7 +37,8 @@ def predict_class(feature_path, outdir):
     euk_namelist = original_nona[original_nona["predicted"] == 0]['contig'].to_list()
     prok_namelist = original_nona[original_nona["predicted"] == 1]['contig'].to_list()
 
-    original_nona.to_csv(os.path.join(outdir, "featuretable_predictions.csv"), index=False)
+    csv_name = ("featuretable_predictions_" + model + ".csv")
+    original_nona.to_csv(os.path.join(outdir, csv_name), index=False)
 
     file = open(os.path.join(outdir, "eukaryote_contig_headers.txt"), 'w')
     for items in euk_namelist:

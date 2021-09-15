@@ -5,7 +5,7 @@ import os
 import time
 
 parser = argparse.ArgumentParser("Classify metagenomic contigs as eukaryotic or prokaryotic")
-parser.add_argument("--contigs", help="The path to your contigs file. It should be one multifasta.")
+parser.add_argument("--contigs", help="The path to your contigs file. It should be one multifasta (DNA).")
 parser.add_argument("--outdir", help="Specify the path to your preferred output directory. No / at the end.")
 parser.add_argument("--prodigal_file", help="If you already have prodigal gene predictions, specify path to the "
                                             ".genes or .gff file")
@@ -16,64 +16,75 @@ parser.add_argument("--train", action='store_true', help="For training an RF on 
 parser.add_argument("--minsize", default=5000, help="Select a minimum contig size in bp, default = 5000. Accuracy on\
 contigs below 5000 is lower.")
 parser.add_argument("--log", action='store_true', help="If you want a log file.")
+parser.add_argument("--model", default="S", help="Choose the stand-alone model or the tiara-integrated model: S or T.\
+ Option 'T' only works with argument --contigs")
 #  @TODO: integrate log file option into code
 
 args = parser.parse_args()
 
 if args.contigs:
-    print("Removing contigs with length <", args.minsize, "bp...")
-    size_filter(args.contigs, args.outdir, size=args.minsize)
-    fasta_name = "contigs" + str(args.minsize) + ".fasta"
+    filtered_contigs = 'empty'
+    try:
+        print("Removing contigs with length <", args.minsize, "bp...")
+        size_filter(args.contigs, args.outdir, size=args.minsize)
+        fasta_name = "contigs" + str(args.minsize) + ".fasta"
 
-    filtered_contigs = os.path.join(args.outdir, fasta_name)
+        filtered_contigs = os.path.join(args.outdir, fasta_name)
+    except NameError:
+        print("Please provide contigs fasta file (nucleotide).")
 
-    print("Running tiara first...")
-    run_tiara(filtered_contigs, args.outdir)
-
-    if not args.prodigal_file:
-        print("Running prodigal...")
-        run_prodigal(filtered_contigs, args.outdir)
-        print("Prodigal successful. Saving gene coordinate file...")
-        contig_file = os.path.join(args.outdir, "contigs_genes.genes")
-        print("Gene coordinate file saved.")
-
-        if not args.test and not args.train:
-            print("Calculating features...")
-            calc_features(contig_file, args.outdir)
-            print("Calculating features successful.")
-
-        if args.test:
-            print("Calculating features and predicting test data...")
-            calc_test_features(contig_file, args.outdir)
-            print("Test successful...")
-
-        if args.train:
-            print("Training a new classifier...")
-            calc_train_features(contig_file, args.outdir)
-            print("Training successful...")
+    if args.model == "T":
+        print("Model with tiara predictions selected.\nRunning tiara...")
+        run_tiara(filtered_contigs, args.outdir)
 
     if args.prodigal_file:
+        gene_predictions = args.prodigal_file
+    else:
+        print("Running prodigal...")
+        prodigal_start = time.time()
+        run_prodigal(filtered_contigs, args.outdir)
+        print("Prodigal successful. Saving gene coordinate file...")
+        gene_predictions = os.path.join(args.outdir, "contigs_genes.genes")
+        print("Gene coordinate file saved.")
+        prodigal_tot = time.time() - prodigal_start
+        print(f"Gene prediction took {prodigal_tot} seconds.")
 
-        print("Calculating features from gene coordinates file...")
-        if not args.test and not args.train:
-            calc_features(args.prodigal_file, args.outdir)
-            print("Calculating features successful.")
-
-        if args.test:
-            print("Testing classifier on dataset with known taxonomy...")
-            calc_test_features(args.prodigal_file, args.outdir)
-            print("Testing successful. Check the output files.")
-
-        if args.train:
-            print("Training a new classifier...")
-            calc_train_features(args.prodigal_file, args.outdir)
-            print("Training successful...")
+if not args.contigs:
+    print("No contig fasta was provided.")
+    if args.prodigal_file:
+        gene_predictions = args.prodigal_file
+    else:
+        print("No gene predictions found. Provide contig fasta or prodigal output file.")
+        quit()
 
 if not args.test and not args.train:
+    print("Calculating gene structure features with gene predictions...")
+    calc_start = time.time()
+    calc_features(gene_predictions, args.outdir)
+    print("Calculating features successful.")
+    calc_tot = time.time() - calc_start
+    print(f"Calculating gene structure features took {calc_tot} seconds.")
+
     print("Predicting contig class...")
+    predict_start = time.time()
     feature_path = os.path.join(args.outdir, "featuretable.csv")
-    predict_class(feature_path, args.outdir)
+    predict_class(feature_path, args.outdir, args.model)
     print("Prediction successful! See output directory.")
+    predict_tot = time.time() - calc_start
+    print(f"Predicting contig class took {predict_tot} seconds.")
+
+if args.test:
+    print("Calculating features and predicting test data...")
+    test_start = time.time()
+    calc_test_features(gene_predictions, args.outdir, args.model)
+    print("Test successful...")
+    test_tot = time.time() - test_start
+    print(f"Prediction of test data took {test_tot} seconds.")
+
+if args.train:
+    print("Training a new classifier...")
+    calc_train_features(gene_predictions, args.outdir)
+    print("Training successful...")
 
 if args.f:
     print("Writing eukaryotic and prokaryotic contigs to separate fasta files. This can take very long...")
