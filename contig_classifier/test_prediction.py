@@ -9,8 +9,6 @@ from pathlib import Path
 import joblib
 import os
 
-#  contig_file = "unknown"
-
 
 def add_tiara(dataframe, outdir):
     tiara_list = []

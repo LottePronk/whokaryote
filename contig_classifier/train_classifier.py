@@ -276,7 +276,6 @@ def calc_train_features(contig_file, outdir):
     df = pd.DataFrame(data_dict, columns=list(data_dict.keys()))
 
     df_tiara = add_tiara(df, outdir)
-
     original_nona = df_tiara.copy(deep=True)
 
     original_nona = original_nona.dropna()

@@ -8,7 +8,7 @@ import os
 def predict_class(feature_path, outdir, model):
 
     if model == "T":
-        print("Using tiara-integrated model to predict contig class...")
+        print("Using model with tiara predictions to predict contig class...")
         model_file = "random_forest5100500_g3_3_tiarapred.joblib"
     else:
         print("Using standard model to predict contig class...")
