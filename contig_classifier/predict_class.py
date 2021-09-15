@@ -4,6 +4,49 @@ import joblib
 from pathlib import Path
 import os
 
+def add_tiara(dataframe, outdir):
+    tiara_list = []
+
+    tiara = os.path.join(outdir, "tiara_pred.txt")
+
+    with open(tiara, newline='') as tiara_file:
+        for line in tiara_file:
+
+            if line.startswith("sequence_id"):
+                continue
+
+            all_line = line.strip().split("\t")
+
+            seq_id = all_line[0].split(" ")[0]
+
+            prediction = all_line[1]
+
+            if prediction == "eukarya":
+                prediction = 0
+            elif prediction == "archaea" or prediction == "bacteria" or prediction == "prokarya":
+                prediction = 1
+            else:
+                # . prediction == "organelle" or prediction == "unknown":
+                prediction = 2
+
+            # . print(seq_id, prediction)
+
+            tiara_list.append([seq_id, prediction])
+
+    dataframe['tiara_pred'] = np.nan
+
+    for header in tiara_list:
+
+        seq_id = header[0]
+
+        if seq_id not in dataframe['contig'].values:
+            pass
+
+        else:
+            predicted_class = header[1]
+            dataframe.loc[dataframe['contig'] == seq_id, 'tiara_pred'] = predicted_class
+
+    return dataframe
 
 def predict_class(feature_path, outdir, model):
 
@@ -16,7 +59,12 @@ def predict_class(feature_path, outdir, model):
 
     feature_df = pd.read_csv(feature_path)
 
-    original_nona = feature_df.copy(deep=True)
+    if model == "T":
+        df_tiara = add_tiara(feature_df, outdir)
+        original_nona = df_tiara.copy(deep=True)
+    else:
+        original_nona = feature_df.copy(deep=True)
+
     original_nona = original_nona.dropna()
 
     del feature_df['contig']
