@@ -65,20 +65,6 @@ def add_tiara(dataframe, outdir):
 
 
 def calc_train_features(contig_file, outdir):
-    # eukaryote_names = ["Phaseolus_vulgaris", "Puccinia_graminis", "Ustilago_maydis",
-    #                    "Dictyostelium_discoideum", "Saprolegnia_parasitica",
-    #                    "Amoebophrya_sp.", "Gigaspora_margarita", "Pyricularia_oryzae",
-    #                    "Fusarium_oxysporum", "Aspergillus_oryzae", "Beauveria_bassiana",
-    #                    "Phytophthora_parasitica", "Saccharomyces_cerevisiae"]
-    #
-    # prokaryote_names = ["Gemmata_obscuriglobus", "Streptomyces_albidoflavus",
-    #                     "Candidatus_Prometheoarchaeum", "Clostridium_cellulovorans",
-    #                     "Methanobacterium_subterraneum", "TPA_asm:_Burkholderia",
-    #                     "Escherichia_coli", "Pseudomonas_protegens",
-    #                     "Flavobacterium_lindanitolerans", "Chitinophaga_rhizosphaerae",
-    #                     "Acidobacterium_capsulatum", "Methanococcus_maripaludis",
-    #                     "Nostoc_punctiforme", "Xanthomonas_sacchari",
-    #                     "Chloroflexus_aggregans", "Bacillus_thuringiensis"]
 
     data_dict = {"contig": [],
                  "organism": [],
@@ -345,7 +331,7 @@ def calc_train_features(contig_file, outdir):
 
     confusion_matrix = pd.crosstab(test_labels, predictions, rownames=['Actual'], colnames=['Predicted'])
     fig = sn.heatmap(confusion_matrix, annot=True)
-    fig.figure.savefig(os.path.join(outdir, 'RF_confusionmatrix_5100500_proba_g3_3_tiarapred.png'))
+    fig.figure.savefig(os.path.join(outdir, 'RF_T_291021.png'))
 
     print('Accuracy: ', metrics.accuracy_score(test_labels, predictions))
     plt.show()
@@ -356,19 +342,14 @@ def calc_train_features(contig_file, outdir):
     feature_importances = pd.Series(rf.feature_importances_).sort_values(ascending=False)
     print(feature_importances)
 
-    #  sn.barplot(x=round(featureImportances,4), y=featureImportances)
-    #  plt.xlabel('Features Importance')
-    #  lt.savefig('feature_importance_5100500_proba.png')
-
     # Predict the whole dataset
     print("Predicting whole dataset")
     # all_predicted = rf.predict_proba(features)
     class_predicted = rf.predict(features)
 
-    #  print(all_predicted)
     original_nona['predicted'] = class_predicted
     # df_new = pd.concat([original_nona, pd.DataFrame(class_predicted)], axis=1, join="inner")
-    original_nona.to_csv(os.path.join(outdir, 'results_RF_5100500_g3_3_tiara.csv'))
+    original_nona.to_csv(os.path.join(outdir, 'RF_T_291021.csv'), index=False)
 
     # save the RF model for later use
-    joblib.dump(rf, os.path.join(Path(__file__).parents[1], "data", "random_forest5100500_g3_3_tiarapred.joblib"))
+    joblib.dump(rf, os.path.join(Path(__file__).parents[1], "data", "RF_T_291021.joblib"))

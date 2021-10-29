@@ -4,6 +4,7 @@ import joblib
 from pathlib import Path
 import os
 
+
 def add_tiara(dataframe, outdir):
     tiara_list = []
 
@@ -47,6 +48,7 @@ def add_tiara(dataframe, outdir):
             dataframe.loc[dataframe['contig'] == seq_id, 'tiara_pred'] = predicted_class
 
     return dataframe
+
 
 def predict_class(feature_path, outdir, model):
 

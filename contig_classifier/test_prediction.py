@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """ A script that is used to test the classifier. It can be used with a dataset for which it is known which contigs
- are eukaryotic and which ones are prokaryotic. All the organism names need to be hard-coded though, which is not cool. """
+ are eukaryotic and which ones are prokaryotic. """
 
 import pandas as pd
 import numpy as np
@@ -59,7 +59,8 @@ def calc_test_features(contig_file, outdir, model):
 
     if model == "T":
         print("Using tiara-integrated model to predict contig class...")
-        model_file = "random_forest5100500_g3_3_tiarapred.joblib"
+        # model_file = "random_forest5100500_g3_3_tiarapred.joblib"
+        model_file = "RF_T_291021.joblib"
     else:
         print("Using standard model to predict contig class...")
         model_file = "random_forest510500_g3_3.joblib"
