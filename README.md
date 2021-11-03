@@ -57,8 +57,17 @@ Warning! A tutorial on how to use --test and --train is still missing and will b
 
 The most simple way to run Whokaryote with the tiara-integrated model.
 If you already have gene prediction files (e.g. .gff from prodigal or .sco from prodigal), 
-use the --prodigal_file option.
+use the --prodigal_file option. If you don't have an annotation file yet, you can use only
+--contigs and --outdir. Prodigal will then be run on your contigs file, which may take a while.
 
 ```
 whokaryote.py --contigs contigs.fasta --outdir whokaryote_output --prodigal_file contigs_genes.gff
 ```
+
+You will get the following output files:
+
+- A file with all contig headers that were classified as eukaryotic (eukaryotic_contigs.txt), 
+and a similar file for prokaryotic contig headers (prokaryotic_contigs.txt)
+- A fasta file with only contigs that were longer than 5000 bp, called contigs5000.fasta
+- A .tsv file with all the calculated features called calculated_features.tsv
+- A file with the tiara predictions called tiara_pred.txt

@@ -18,7 +18,7 @@ parser.add_argument("--train", action='store_true', help="For training an RF on 
 parser.add_argument("--minsize", default=5000, help="Select a minimum contig size in bp, default = 5000. Accuracy on\
 contigs below 5000 is lower.")
 #  parser.add_argument("--log", action='store_true', help="If you want a log file.")
-parser.add_argument("--model", default="S", help="Choose the stand-alone model or the tiara-integrated model: S or T.\
+parser.add_argument("--model", default="T", help="Choose the stand-alone model or the tiara-integrated model: S or T.\
  Option 'T' only works with argument --contigs")
 #  @TODO: integrate log file option into code.
 

@@ -1,4 +1,4 @@
-""" Run gene prediction with prodigal, metagenomics mode. """
+""" Run Tiara, default settings. """
 
 import subprocess
 import os
