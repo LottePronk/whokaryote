@@ -1,5 +1,7 @@
 
-""" This script calculates the features needed for the classifier. It uses the gene coordinate file from prodigal. """
+""" This script calculates the features needed for the classifier. It uses the gene coordinate file from prodigal
+ or a .gff file. """
+
 import pandas as pd
 import numpy as np
 import os
