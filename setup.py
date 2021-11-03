@@ -22,9 +22,9 @@ setuptools.setup(
     ],
     #  package_dir={"": "src"},
     #  packages=setuptools.find_packages(where="src"),
-    packages=['whokaryote'],
+    packages=['whokaryote_scripts'],
     include_package_data=True,
     python_requires=">=3.8",
-    scripts=['bin/whokaryote.py'],
-    install_requires=['pandas', 'pathlib', 'biopython', 'numpy', 'joblib', 'sklearn']
+    scripts=['bin/whokaryote_scripts.py'],
+    install_requires=['pandas', 'pathlib', 'biopython', 'numpy', 'joblib', 'scikit-learn']
 )
