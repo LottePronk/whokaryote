@@ -9,7 +9,6 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import cross_val_score
-import seaborn as sn
 import matplotlib.pyplot as plt
 from sklearn import metrics
 import joblib
@@ -328,10 +327,6 @@ def calc_train_features(contig_file, outdir):
     errors = abs(predictions - test_labels)
     # Print out the mean absolute error (mae)
     print('Mean Absolute Error:', round(np.mean(errors), 2), 'degrees.')
-
-    confusion_matrix = pd.crosstab(test_labels, predictions, rownames=['Actual'], colnames=['Predicted'])
-    fig = sn.heatmap(confusion_matrix, annot=True)
-    fig.figure.savefig(os.path.join(outdir, 'RF_T_291021.png'))
 
     print('Accuracy: ', metrics.accuracy_score(test_labels, predictions))
     plt.show()
