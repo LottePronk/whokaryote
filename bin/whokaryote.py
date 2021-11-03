@@ -76,17 +76,19 @@ if not args.test and not args.train:
     print(f"Predicting contig class took {predict_tot} seconds.")
 
 if args.test:
-    print("Calculating features and predicting test data...")
-    test_start = time.time()
-    calc_test_features(gene_predictions, args.outdir, args.model)
-    print("Test successful...")
-    test_tot = time.time() - test_start
-    print(f"Prediction of test data took {test_tot} seconds.")
+    pass
+    # print("Calculating features and predicting test data...")
+    # test_start = time.time()
+    # calc_test_features(gene_predictions, args.outdir, args.model)
+    # print("Test successful...")
+    # test_tot = time.time() - test_start
+    # print(f"Prediction of test data took {test_tot} seconds.")
 
 if args.train:
-    print("Training a new classifier...")
-    calc_train_features(gene_predictions, args.outdir)
-    print("Training successful...")
+    pass
+    # print("Training a new classifier...")
+    # calc_train_features(gene_predictions, args.outdir)
+    # print("Training successful...")
 
 if args.f:
     print("Writing eukaryotic and prokaryotic contigs to separate fasta files. This can take very long...")

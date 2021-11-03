@@ -1,2 +1,5 @@
 /contig_classifier.egg-info/
 .idea
+/whokaryote_scripts/test_prediction.py
+/whokaryote_scripts/train_classifier.py
+/whokaryote_scripts/train_kmers_only.py
