@@ -25,6 +25,6 @@ setuptools.setup(
     packages=['whokaryote_scripts'],
     include_package_data=True,
     python_requires=">=3.8",
-    scripts=['bin/whokaryote_scripts.py'],
+    scripts=['bin/whokaryote.py'],
     install_requires=['pandas', 'pathlib', 'biopython', 'numpy', 'joblib', 'scikit-learn']
 )
