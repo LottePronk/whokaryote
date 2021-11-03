@@ -1,3 +1,5 @@
+# Main script that will be used on the commandline.
+
 from contig_classifier import *
 import argparse
 from pathlib import Path
@@ -88,7 +90,7 @@ if args.train:
 
 if args.f:
     print("Writing eukaryotic and prokaryotic contigs to separate fasta files. This can take very long...")
-    script_path = os.path.join(str(Path(__file__).parents[1]), "contig_classifier", "get_euk_prok_fasta.sh")
+    script_path = os.path.join(str(Path(__file__).parents[1]), "whokaryote", "get_euk_prok_fasta.sh")
     input_file = args.contigs
     output_file = os.path.join(args.outdir, "lin_contigs.fasta")
     euk_headers = os.path.join(args.outdir, "eukaryote_contig_headers.txt")

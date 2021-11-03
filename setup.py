@@ -22,7 +22,7 @@ setuptools.setup(
     ],
     #  package_dir={"": "src"},
     #  packages=setuptools.find_packages(where="src"),
-    packages=['contig_classifier'],
+    packages=['whokaryote'],
     include_package_data=True,
     python_requires=">=3.8",
     scripts=['bin/whokaryote.py'],
