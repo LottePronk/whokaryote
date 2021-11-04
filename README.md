@@ -21,11 +21,12 @@ We recommend that you install whokaryote and its dependencies in a new conda env
 You can download miniconda here: https://docs.conda.io/en/latest/miniconda.html
 
 1. Make a new and empty conda environment, and activate it:
-- `conda create -n whokaryote`
+- `conda create -n whokaryote python==3.8`
 - `conda activate whokaryote`
 2. Install dependencies with these commands:
 - `conda install -c bioconda prodigal`
-- `pip install tiara` (see: https://github.com/ibe-uw/tiara)
+- `conda install pip`
+- `python -m pip install tiara` (see: https://github.com/ibe-uw/tiara)
 3. Install whokaryote:
 - Navigate to a directory you want to install whokaryote in.
 - Clone whokaryote to this directory: `git clone https://git.wur.nl/lotte.pronk/whokaryote.git `
