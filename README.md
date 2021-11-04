@@ -35,7 +35,7 @@ You can download miniconda here: https://docs.conda.io/en/latest/miniconda.html
 ---
 ## Using whokaryote
 
-Use `whokaryote.py --help` to see the arguments you can use:
+Use `whokaryote.py --help` to see all the options:
 ```
 -h, --help            show this help message and exit
 --contigs CONTIGS     The path to your contigs file. It should be one multifasta (DNA).
@@ -60,8 +60,6 @@ use the --prodigal_file option.
 
 If you don't have an annotation file yet, you can use only
 --contigs and --outdir. Prodigal will then be run on your contigs file, which may take a while.
-However, note that the output file will be a gene coordinate file, and not a fasta with the translated sequences.
-If you want this, it is recommended to run Prodigal (or any other gene predictor) yourself. 
 
 With the example command, you will get the following output files:
 
