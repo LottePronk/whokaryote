@@ -28,7 +28,7 @@ if args.contigs:
     filtered_contigs = 'empty'
     try:
         print("Removing contigs with length <", args.minsize, "bp...")
-        size_filter(args.contigs, args.outdir, size=args.minsize)
+        size_filter(args.contigs, args.outdir, size=int(args.minsize))
         fasta_name = "contigs" + str(args.minsize) + ".fasta"
 
         filtered_contigs = os.path.join(args.outdir, fasta_name)
