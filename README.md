@@ -25,7 +25,6 @@ You can download miniconda here: https://docs.conda.io/en/latest/miniconda.html
 - `conda activate whokaryote`
 2. Install dependencies with these commands:
 - `conda install -c bioconda prodigal`
-- `conda install pip`
 - `python -m pip install tiara` (see: https://github.com/ibe-uw/tiara)
 3. Install whokaryote:
 - Navigate to a directory you want to install whokaryote in.
