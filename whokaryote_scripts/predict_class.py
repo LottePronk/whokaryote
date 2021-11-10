@@ -78,7 +78,7 @@ def predict_class(feature_path, outdir, model):
     features = np.array(features)
     print(features.shape)
 
-    loaded_rf = joblib.load(os.path.join(Path(__file__).parents[1], "data", model_file))
+    loaded_rf = joblib.load(os.path.join(Path(__file__).parents[1], "whokaryote_scripts/data", model_file))
 
     predictions = loaded_rf.predict(features)
 
