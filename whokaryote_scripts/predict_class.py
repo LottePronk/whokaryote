@@ -83,13 +83,14 @@ def predict_class(feature_path, outdir, model):
     predictions = loaded_rf.predict(features)
 
     original_nona['predicted'] = predictions
-    original_nona['predicted'] = original_nona['predicted'].replace([0, 1], ["eukaryote", "prokaryote"])
 
     euk_namelist = original_nona[original_nona["predicted"] == 0]['contig'].to_list()
     prok_namelist = original_nona[original_nona["predicted"] == 1]['contig'].to_list()
 
-    csv_name = ("featuretable_predictions_" + model + ".csv")
-    original_nona.to_csv(os.path.join(outdir, csv_name), index=False)
+    original_nona['predicted'] = original_nona['predicted'].replace([0, 1], ["eukaryote", "prokaryote"])
+
+    csv_name = ("featuretable_predictions_" + model + ".tsv")
+    original_nona.to_csv(os.path.join(outdir, csv_name), index=False, sep="\t")
 
     simple_table = original_nona[['contig', 'predicted']].copy()
     simple_output = ("whokaryote_predictions_" + model + ".tsv")
