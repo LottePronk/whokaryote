@@ -49,6 +49,15 @@ Use `whokaryote.py --help` to see all the options:
 
 ### Example:
 
+**Warning:** 
+If you do not create an output directory before running whokaryote, you will get the following error:
+'FileNotFoundError: [Errno 2] No such file or directory'
+
+It is important to first make a directory for the output, for example:
+
+`mkdir whokaryote_output `
+
+Then when typing the command to run whokaryote, don't use a '/ ' after the name of your output directory.
 ```
 whokaryote.py --contigs contigs.fasta --outdir whokaryote_output --prodigal_file contigs_genes.gff
 ```
