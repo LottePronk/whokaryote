@@ -29,6 +29,7 @@ You can download miniconda here: https://docs.conda.io/en/latest/miniconda.html
 3. Install whokaryote:
 - Navigate to a directory you want to install whokaryote in.
 - Clone whokaryote to this directory: `git clone https://git.wur.nl/lotte.pronk/whokaryote.git `
+(or `git clone https://github.com/LottePronk/whokaryote.git` )
 - Go to the whokaryote directory: `cd whokaryote`
 - Install whokaryote in your (conda) environment with`python setup.py install`
 
