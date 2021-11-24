@@ -1,11 +1,11 @@
 # Whokaryote
 
-Classification of metagenomic contigs as eukaryotic/prokaryotic using biology-based features.
-
 Whokaryote uses a random forest classifier that uses gene-structure based features and Tiara
 (https://github.com/ibe-uw/tiara) predictions to predict whether a contig is from a eukaryote or from a prokaryote.
 
 You can use Whokaryote to determine which contigs need eukaryotic gene prediction and which need prokaryotic gene prediction.
+
+Issues can be created via GitHub: https://github.com/LottePronk/whokaryote
 
 ---
 
