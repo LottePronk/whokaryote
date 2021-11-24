@@ -11,9 +11,9 @@ setuptools.setup(
     description="Whokaryote: A fast and easy tool to predict if a metagenomic contig is eukaryotic or prokaryotic",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://git.wageningenur.nl/lotte.pronk/whokaryote",
+    url="https://github.com/LottePronk/whokaryote",
     project_urls={
-        "Bug Tracker": "https://git.wageningenur.nl/lotte.pronk/whokaryote",
+        "Bug Tracker": "https://github.com/LottePronk/whokaryote",
     },
     classifiers=[
         "Programming Language :: Python :: 3",
