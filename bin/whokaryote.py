@@ -20,9 +20,19 @@ contigs below 5000 is lower.")
 #  parser.add_argument("--log", action='store_true', help="If you want a log file.")
 parser.add_argument("--model", default="T", help="Choose the stand-alone model or the tiara-integrated model: S or T.\
  Option 'T' only works with argument --contigs")
+parser.add_argument("--threads", default="1", help="Number of threads for Tiara to use.")
 #  @TODO: integrate log file option into code.
+#  @TODO: Check why multithreading with Tiara makes the classification slower.
 
 args = parser.parse_args()
+
+if os.path.isdir(args.outdir):
+    print("Output directory is " + args.outdir)
+else:
+    try:
+        os.mkdir(args.outdir)
+    except PermissionError:
+        print("There is no permission to change the directory. Please create output directory yourself.")
 
 if args.contigs:
     filtered_contigs = 'empty'
@@ -36,8 +46,11 @@ if args.contigs:
         print("Please provide contigs fasta file (nucleotide).")
 
     if args.model == "T":
-        print("Model with tiara predictions selected.\nRunning tiara...")
-        run_tiara(filtered_contigs, args.outdir)
+        if args.threads == "1":
+            print("Model with tiara predictions selected.\nRunning tiara with " + args.threads + " thread...")
+        else:
+            print("Model with tiara predictions selected.\nRunning tiara with " + args.threads + " threads...")
+        run_tiara(filtered_contigs, args.outdir, args.threads)
 
     if args.prodigal_file:
         gene_predictions = args.prodigal_file
