@@ -111,10 +111,11 @@ def calc_features(contig_file, outfile):
                  "gene_density": [],
                  "gene_length": [],
                  "ID_Q1": [],
-                 "ID_Q3": []}
+                 "ID_Q3": [],
+                 "rbs_ratio": []}
 
     gene_list = "empty"
-
+    rbs_list = "empty"
     filetype = "unknown"
 
     if ".gff" in contig_file:
@@ -131,6 +132,14 @@ def calc_features(contig_file, outfile):
             if line.startswith("# Seq"):
 
                 if gene_list != "empty":   # This is the gene list from the previous contig
+                    if len(rbs_list) == 0:
+                        rbs_ratio = np.nan
+                        print("RBS_list = 0", rbs_ratio)
+                    if len(rbs_list) > 0:
+                        rbs_ratio = 1 - (rbs_list.count("None") / len(rbs_list))
+
+                    data_dict["rbs_ratio"].append(rbs_ratio)
+
                     add_features(data_dict, gene_list, filetype, seqlength)
 
                 header = line
@@ -149,11 +158,21 @@ def calc_features(contig_file, outfile):
 
             if filetype == "GFF":
                 if not line.startswith("#"):
+                    stats = line.split("\t")[8]
+                    rbs_motifs = stats.split(";")[3].split("=")[1]
+                    rbs_list.append(rbs_motifs)
+
                     info = [line.split("\t")[3], line.split("\t")[4], line.split("\t")[6]]
                     gene_list.append(info)
 
         # This is for the last contig:
         if gene_list != "empty":
+            if len(rbs_list) == 0:
+                rbs_ratio = np.nan
+            if len(rbs_list) > 0:
+                rbs_ratio = 1 - (rbs_list.count("None") / len(rbs_list))
+
+            data_dict["rbs_ratio"].append(rbs_ratio)
             add_features(data_dict, gene_list, filetype, seqlength)
 
     # Saving the dictionary to a dataframe that will be used for the classifier:

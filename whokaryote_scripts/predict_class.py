@@ -54,10 +54,12 @@ def predict_class(feature_path, outdir, model):
 
     if model == "T":
         print("Using model with tiara predictions to predict contig class...")
-        model_file = "whokaryote_model_tiara.joblib"
+        #  model_file = "whokaryote_model_tiara.joblib"
+        model_file = "RF_T_RBS_310122_bal.joblib"
     else:
         print("Using standard model to predict contig class...")
-        model_file = "whokaryote_model_standard.joblib"
+        #  model_file = "whokaryote_model_standard.joblib"
+        model_file = "RF_S_RBS_240121_bal.joblib"
 
     feature_df = pd.read_csv(feature_path)
 
@@ -73,11 +75,12 @@ def predict_class(feature_path, outdir, model):
     del feature_df['contig_length']
     del feature_df['nr_genes']
 
-    features = pd.get_dummies(feature_df)
-    features = features.dropna()
-    features = np.array(features)
+    #  features = pd.get_dummies(feature_df)
+    features = feature_df.dropna()
+    #  features = np.array(features)
+    print("Used features:\n", features.describe())
     print(features.shape)
-    print(model_file)
+    print("Used model: ", model_file)
     loaded_rf = joblib.load(os.path.join(str(Path(__file__).parents[1]), "whokaryote_scripts/data", model_file))
 
     predictions = loaded_rf.predict(features)
