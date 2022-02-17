@@ -21,7 +21,7 @@ contigs below 5000 is lower.")
 parser.add_argument("--model", default="T", help="Choose the stand-alone model or the tiara-integrated model: S or T.\
  Option 'T' only works with argument --contigs")
 parser.add_argument("--threads", default="1", help="Number of threads for Tiara to use.")
-#  @TODO: integrate log file option into code..
+#  @TODO: integrate log file option into code.
 
 args = parser.parse_args()
 
