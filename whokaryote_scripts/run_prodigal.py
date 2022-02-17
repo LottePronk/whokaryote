@@ -9,4 +9,4 @@ def run_prodigal(contig_file, outdir):
     proteins_output = os.path.join(outdir, "contigs_proteins.faa")
 
     subprocess.call(
-        ["prodigal", "-i", contig_file, "-o", genes_output, "-a", proteins_output, "-p", "meta", "-f", "sco", "-q"])
+        ["prodigal", "-i", contig_file, "-o", genes_output, "-a", proteins_output, "-p", "meta", "-f", "gff", "-q"])

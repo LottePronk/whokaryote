@@ -14,7 +14,7 @@ parser.add_argument("--prodigal_file", help="If you already have prodigal gene p
 parser.add_argument("--f", action='store_true', help="If you want new multifastas with only eukaryotes and only "
                                                      "prokaryotes. This can take a long time.")
 parser.add_argument("--test", action='store_true', help="If you want to test it on a known dataset.")
-parser.add_argument("--train", action='store_true', help="For training an RF on your own dataset")
+parser.add_argument("--train", help="For training an RF on your own dataset. Provide name of RF output file.")
 parser.add_argument("--minsize", default=5000, help="Select a minimum contig size in bp, default = 5000. Accuracy on\
 contigs below 5000 is lower.")
 #  parser.add_argument("--log", action='store_true', help="If you want a log file.")
@@ -99,9 +99,9 @@ if args.test:
 
 if args.train:
     pass
-    # print("Training a new classifier...")
-    # calc_train_features(gene_predictions, args.outdir)
-    # print("Training successful...")
+    print("Training a new classifier...")
+    calc_training_features(gene_predictions, args.outdir, args.train)
+    print("Training successful...")
 
 if args.f:
     print("Writing eukaryotic and prokaryotic contigs to separate fasta files. This can take very long...")

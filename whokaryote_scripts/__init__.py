@@ -5,3 +5,4 @@ from whokaryote_scripts.predict_class import *
 from whokaryote_scripts.size_filter import *
 #  from whokaryote_scripts.train_classifier import *
 from whokaryote_scripts.run_tiara import *
+from whokaryote_scripts.train_RF_new import *
