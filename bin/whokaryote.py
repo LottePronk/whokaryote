@@ -22,7 +22,6 @@ parser.add_argument("--model", default="T", help="Choose the stand-alone model o
  Option 'T' only works with argument --contigs")
 parser.add_argument("--threads", default="1", help="Number of threads for Tiara to use.")
 #  @TODO: integrate log file option into code.
-#  @TODO: Check why multithreading with Tiara makes the classification slower.
 
 args = parser.parse_args()
 
