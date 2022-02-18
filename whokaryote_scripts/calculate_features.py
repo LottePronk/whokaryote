@@ -150,6 +150,7 @@ def calc_features(contig_file, outfile):
                 data_dict["contig_length"].append(seqlength)
 
                 gene_list = []
+                rbs_list = []
 
             if filetype == "coord":
                 if line.startswith(">"):

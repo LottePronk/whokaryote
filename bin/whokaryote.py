@@ -45,7 +45,9 @@ if args.contigs:
         print("Please provide contigs fasta file (nucleotide).")
 
     if args.model == "T":
-        if args.threads == "1":
+        if os.path.exists((args.outdir + "/" + "tiara_pred.txt")):
+            print("Tiara prediction file already present.")
+        elif args.threads == "1":
             print("Model with tiara predictions selected.\nRunning tiara with " + args.threads + " thread...")
         else:
             print("Model with tiara predictions selected.\nRunning tiara with " + args.threads + " threads...")

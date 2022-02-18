@@ -5,7 +5,7 @@ import os
 
 
 def run_prodigal(contig_file, outdir):
-    genes_output = os.path.join(outdir, "contigs_genes.genes")
+    genes_output = os.path.join(outdir, "contigs_genes.gff")
     proteins_output = os.path.join(outdir, "contigs_proteins.faa")
 
     subprocess.call(
