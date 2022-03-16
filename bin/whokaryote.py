@@ -60,7 +60,7 @@ if args.contigs:
         print("Running prodigal...")
         prodigal_start = time.time()
         run_prodigal(filtered_contigs, args.outdir)
-        print("Prodigal successful. Saving gene coordinate file...")
+        print("Prodigal gene prediction successful. Saving gene coordinate file...")
         gene_predictions = os.path.join(args.outdir, "contigs_genes.gff")
         print("Gene coordinate file saved.")
         prodigal_tot = time.time() - prodigal_start
