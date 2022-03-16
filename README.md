@@ -12,8 +12,10 @@ Issues can be created via GitHub: https://github.com/LottePronk/whokaryote
 ## Installation
 
 Whokaryote was developed to run from the commandline on a UNIX-based system such as Ubuntu or MacOS. 
-If you want to use Whokaryote on your Windows PC, install Windows Subsystem for Linux (WSL). See
+If you want to use Whokaryote on your Windows PC, we recommend you install Windows Subsystem for Linux (WSL). See
 https://docs.microsoft.com/en-us/windows/wsl/about
+
+Alternatively, you can install Whokaryote and its dependencies in a conda environment in Windows, see the instructions.
 
 ###### Recommended installation:
 
@@ -24,8 +26,14 @@ You can download miniconda here: https://docs.conda.io/en/latest/miniconda.html
 - `conda create -n whokaryote python==3.8`
 - `conda activate whokaryote`
 2. Install dependencies with these commands:
+- ####Linux/MacOS:
 - `conda install -c bioconda prodigal`
 - `python -m pip install tiara` (see: https://github.com/ibe-uw/tiara)
+- ####Windows: 
+- download the windows binary of prodigal from the following link:
+https://github.com/hyattpd/Prodigal/releases/tag/v2.6.3
+- change the name: `move prodigal.windows.exe prodigal.exe`
+- move the file to the directory from where you run whokaryote. 
 3. Install whokaryote:
 - Navigate to a directory you want to install whokaryote in.
 - Clone whokaryote to this directory: `git clone https://git.wur.nl/lotte.pronk/whokaryote.git `
@@ -48,6 +56,8 @@ Use `whokaryote.py --help` to see all the options:
 --model MODEL         Choose the stand-alone model or the tiara-integrated model: S or T. Option 'T' only works with argument --contigs
 ```
 
+Note: When using Windows, you may need to run whokaryote from the commandline as follows:
+`python whokaryote\bin\whokaryote.py [options]` 
 ### Example:
 
 ```
