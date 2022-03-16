@@ -49,9 +49,10 @@ if args.contigs:
             print("Tiara prediction file already present.")
         elif args.threads == "1":
             print("Model with tiara predictions selected.\nRunning tiara with " + args.threads + " thread...")
+            run_tiara(filtered_contigs, args.outdir, args.threads)
         else:
             print("Model with tiara predictions selected.\nRunning tiara with " + args.threads + " threads...")
-        run_tiara(filtered_contigs, args.outdir, args.threads)
+            run_tiara(filtered_contigs, args.outdir, args.threads)
 
     if args.prodigal_file:
         gene_predictions = args.prodigal_file
@@ -60,7 +61,7 @@ if args.contigs:
         prodigal_start = time.time()
         run_prodigal(filtered_contigs, args.outdir)
         print("Prodigal successful. Saving gene coordinate file...")
-        gene_predictions = os.path.join(args.outdir, "contigs_genes.genes")
+        gene_predictions = os.path.join(args.outdir, "contigs_genes.gff")
         print("Gene coordinate file saved.")
         prodigal_tot = time.time() - prodigal_start
         print(f"Gene prediction took {prodigal_tot} seconds.")
