@@ -32,7 +32,7 @@ You can download miniconda here: https://docs.conda.io/en/latest/miniconda.html
 - ####Windows: 
 - download the windows binary of prodigal from the following link:
 https://github.com/hyattpd/Prodigal/releases/tag/v2.6.3
-- change the name: `move prodigal.windows.exe prodigal.exe`
+- change the file name: `move prodigal.windows.exe prodigal.exe`
 - move the file to the directory from where you run whokaryote. 
 3. Install whokaryote:
 - Navigate to a directory you want to install whokaryote in.
