@@ -25,15 +25,16 @@ You can download miniconda here: https://docs.conda.io/en/latest/miniconda.html
 1. Make a new and empty conda environment, and activate it:
 - `conda create -n whokaryote python==3.8`
 - `conda activate whokaryote`
-2. Install dependencies with these commands:
-- ####Linux/MacOS:
+2. Install dependencies with these commands:  
+**Linux/MacOS**:
 - `conda install -c bioconda prodigal`
-- `python -m pip install tiara` (see: https://github.com/ibe-uw/tiara)
-- ####Windows: 
+- `python -m pip install tiara` (see: https://github.com/ibe-uw/tiara)  
+**Windows**: 
 - download the windows binary of prodigal from the following link:
 https://github.com/hyattpd/Prodigal/releases/tag/v2.6.3
 - change the file name: `move prodigal.windows.exe prodigal.exe`
 - move the file to the directory from where you run whokaryote. 
+
 3. Install whokaryote:
 - Navigate to a directory you want to install whokaryote in.
 - Clone whokaryote to this directory: `git clone https://git.wur.nl/lotte.pronk/whokaryote.git `
