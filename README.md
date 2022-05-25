@@ -1,11 +1,14 @@
 # Whokaryote
 
-Whokaryote uses a random forest classifier that uses gene-structure based features and Tiara
+Whokaryote uses a random forest classifier that uses gene-structure based features and optionally Tiara
 (https://github.com/ibe-uw/tiara) predictions to predict whether a contig is from a eukaryote or from a prokaryote.
 
 You can use Whokaryote to determine which contigs need eukaryotic gene prediction and which need prokaryotic gene prediction.
 
 Issues can be created via GitHub: https://github.com/LottePronk/whokaryote
+
+###### If you have used Whokaryote in your work, please cite our paper:
+Pronk, Lotte J U, and Marnix H Medema. “Whokaryote: distinguishing eukaryotic and prokaryotic contigs in metagenomes based on gene structure.” _Microbial genomics_ vol. 8,5 (2022): https://doi.org/10.1099/mgen.0.000823
 
 ---
 
@@ -29,7 +32,8 @@ You can download miniconda here: https://docs.conda.io/en/latest/miniconda.html
 **Linux/MacOS**:
 - `conda install -c bioconda prodigal`
 - `python -m pip install tiara` (see: https://github.com/ibe-uw/tiara)  
-**Windows**: 
+
+**Windows**:
 - download the windows binary of prodigal from the following link:
 https://github.com/hyattpd/Prodigal/releases/tag/v2.6.3
 - change the file name: `move prodigal.windows.exe prodigal.exe`
