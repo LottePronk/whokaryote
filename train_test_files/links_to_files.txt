@@ -1,0 +1,9 @@
+# Here you can find the links to the files of the training data, test data and the difficult organisms data.
+
+https://bioinformatics.nl/~pronk032/train_test_files/trainingset_artificial_contigs.fasta
+https://bioinformatics.nl/~pronk032/train_test_files/trainingset_genes.gff
+https://bioinformatics.nl/~pronk032/train_test_files/trainingset_reference_annotations.gff
+https://bioinformatics.nl/~pronk032/train_test_files/testset_artificial_contigs.fasta
+https://bioinformatics.nl/~pronk032/train_test_files/testset_genes.gff
+https://bioinformatics.nl/~pronk032/train_test_files/difficult_organisms.fasta
+https://bioinformatics.nl/~pronk032/train_test_files/difficult_organisms.gff
