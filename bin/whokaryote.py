@@ -6,7 +6,7 @@ from pathlib import Path
 import os
 import time
 
-parser = argparse.ArgumentParser("Classify metagenomic contigs as eukaryotic or prokaryotic")
+parser = argparse.ArgumentParser(description="Classify metagenomic contigs as eukaryotic or prokaryotic")
 parser.add_argument("--contigs", help="The path to your contigs file. It should be one multifasta (DNA).")
 parser.add_argument("--outdir", help="Specify the path to your preferred output directory. No / at the end.")
 parser.add_argument("--prodigal_file", help="If you already have prodigal gene predictions, specify path to the "
