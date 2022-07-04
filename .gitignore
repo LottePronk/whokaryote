@@ -4,3 +4,4 @@
 /whokaryote_scripts/train_classifier.py
 /whokaryote_scripts/train_kmers_only.py
 /whokaryote/scripts/test_kmer_predictions.py
+/Whokaryote.egg-info/
