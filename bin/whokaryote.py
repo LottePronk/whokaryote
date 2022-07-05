@@ -15,7 +15,7 @@ parser.add_argument("--f", action='store_true', help="If you want new multifasta
                                                      "prokaryotes. This can take a long time.")
 parser.add_argument("--test", action='store_true', help="If you want to test it on a known dataset.")
 parser.add_argument("--train", help="For training an RF on your own dataset. Provide name of RF output file.")
-parser.add_argument("--minsize", default=5000, help="Select a minimum contig size in bp, default = 5000. Accuracy on\
+parser.add_argument("--minsize", default=5000, help="Select a minimum contig size in bp, default = 5000. Accuracy on \
 contigs below 5000 is lower.")
 #  parser.add_argument("--log", action='store_true', help="If you want a log file.")
 parser.add_argument("--model", default="T", help="Choose the stand-alone model or the tiara-integrated model: S or T.\
@@ -107,7 +107,7 @@ if args.train:
 
 if args.f:
     print("Writing eukaryotic and prokaryotic contigs to separate fasta files. This can take very long...")
-    script_path = os.path.join(str(Path(__file__).parents[1]), "whokaryote_scripts", "get_euk_prok_fasta.sh")
+    script_path = os.path.join(str(Path(__file__).parents[2]), "whokaryote_scripts/data", "get_euk_prok_fasta.sh")
     input_file = args.contigs
     output_file = os.path.join(args.outdir, "lin_contigs.fasta")
     euk_headers = os.path.join(args.outdir, "eukaryote_contig_headers.txt")

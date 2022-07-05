@@ -4,6 +4,9 @@ import joblib
 from pathlib import Path
 import os
 
+import warnings
+warnings.filterwarnings('ignore')
+
 
 def add_tiara(dataframe, outdir):
     tiara_list = []
@@ -78,9 +81,9 @@ def predict_class(feature_path, outdir, model):
     #  features = pd.get_dummies(feature_df)
     features = feature_df.dropna()
     #  features = np.array(features)
-    print("Used features:\n", features.describe())
-    print(features.shape)
-    print("Used model: ", model_file)
+    #  print("Used features:\n", features.describe())
+    #  print(features.shape)
+    #  print("Used model: ", model_file)
     loaded_rf = joblib.load(os.path.join(str(Path(__file__).parents[1]), "whokaryote_scripts/data", model_file))
 
     predictions = loaded_rf.predict(features)

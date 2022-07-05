@@ -134,7 +134,7 @@ def calc_features(contig_file, outfile):
                 if gene_list != "empty":   # This is the gene list from the previous contig
                     if len(rbs_list) == 0:
                         rbs_ratio = np.nan
-                        print("RBS_list = 0", rbs_ratio)
+                        #  print("RBS_list = 0", rbs_ratio)
                     if len(rbs_list) > 0:
                         rbs_ratio = 1 - (rbs_list.count("None") / len(rbs_list))
 
