@@ -57,7 +57,7 @@ Use `whokaryote.py --help` to see all the options:
 --prodigal_file PRODIGAL_FILE
                         If you already have prodigal gene predictions, specify path to the .genes or .gff file
 --f                   If you want new multifastas with only eukaryotes and only prokaryotes. This can take a long time.
---minsize MINSIZE     Select a minimum contig size in bp, default = 5000. Accuracy oncontigs below 5000 is lower.
+--minsize MINSIZE     Select a minimum contig size in bp, default = 5000. Accuracy on contigs below 5000 is lower.
 --model MODEL         Choose the stand-alone model or the tiara-integrated model: S or T. Option 'T' only works with argument --contigs
 ```
 
