@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # Main script that will be used on the commandline.
 
 from whokaryote_scripts import *
