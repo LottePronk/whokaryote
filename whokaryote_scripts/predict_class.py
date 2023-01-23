@@ -21,7 +21,7 @@ def add_tiara(dataframe, outdir):
 
             all_line = line.strip().split("\t")
 
-            seq_id = all_line[0].split(" ")[0]
+            seq_id = str(all_line[0].split(" ")[0])
 
             prediction = all_line[1]
 
@@ -38,6 +38,7 @@ def add_tiara(dataframe, outdir):
             tiara_list.append([seq_id, prediction])
 
     dataframe['tiara_pred'] = np.nan
+    dataframe['contig'] = dataframe['contig'].astype('string')
 
     for header in tiara_list:
 
