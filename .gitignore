@@ -5,3 +5,6 @@
 /whokaryote_scripts/train_kmers_only.py
 /whokaryote/scripts/test_kmer_predictions.py
 /Whokaryote.egg-info/
+build/
+dist/
+__pycache__
