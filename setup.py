@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="Whokaryote",
-    version="0.0.1",
+    version="1.0.2",
     author="Lotte Pronk",
     author_email="lotte.pronk@wur.nl",
     description="Whokaryote: A fast and easy tool to predict if a metagenomic contig is eukaryotic or prokaryotic",
