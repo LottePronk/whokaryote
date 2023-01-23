@@ -146,7 +146,7 @@ def calc_features(contig_file, outfile):
                 seqname = header.split(";")[2].split('"')[1].split(" ")[0]
                 seqlength = int(header.split(";")[1].split("=")[1])
 
-                data_dict["contig"].append(seqname)
+                data_dict["contig"].append(str(seqname))
                 data_dict["contig_length"].append(seqlength)
 
                 gene_list = []
