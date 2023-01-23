@@ -8,7 +8,7 @@ import os
 import time
 
 parser = argparse.ArgumentParser(description="Classify metagenomic contigs as eukaryotic or prokaryotic")
-parser.add_argument("--contigs", help="The path to your contigs file. It should be one multifasta (DNA).")
+parser.add_argument("--contigs", help="The path to your contigs file. It should be one (multi)fasta (DNA).")
 parser.add_argument("--outdir", help="Specify the path to your preferred output directory. No / at the end.")
 parser.add_argument("--prodigal_file", help="If you already have prodigal gene predictions, specify path to the "
                                             ".genes or .gff file")
@@ -26,6 +26,10 @@ parser.add_argument("--threads", default="1", help="Number of threads for Tiara 
 
 args = parser.parse_args()
 
+if not args.outdir:
+    print("Please specify an output directory with the option --outdir.")
+    exit()
+
 if os.path.isdir(args.outdir):
     print("Output directory is " + args.outdir)
 else:
@@ -35,15 +39,22 @@ else:
         print("There is no permission to change the directory. Please create output directory yourself.")
 
 if args.contigs:
-    filtered_contigs = 'empty'
-    try:
-        print("Removing contigs with length <", args.minsize, "bp...")
-        size_filter(args.contigs, args.outdir, size=int(args.minsize))
-        fasta_name = "contigs" + str(args.minsize) + ".fasta"
+    #  filtered_contigs = 'empty'
 
-        filtered_contigs = os.path.join(args.outdir, fasta_name)
-    except NameError:
-        print("Please provide contigs fasta file (nucleotide).")
+    fasta_name = "contigs" + str(args.minsize) + ".fasta"
+    filtered_contigs = os.path.join(args.outdir, fasta_name)
+
+    if os.path.exists(filtered_contigs):
+        print("Size-filtered contigs already exist. Using those.")
+    else:
+        try:
+            print("Removing contigs with length <", args.minsize, "bp...")
+            size_filter(args.contigs, args.outdir, size=int(args.minsize))
+            fasta_name = "contigs" + str(args.minsize) + ".fasta"
+            filtered_contigs = os.path.join(args.outdir, fasta_name)
+
+        except NameError:
+            print("Please provide contigs fasta file (nucleotide).")
 
     if args.model == "T":
         if os.path.exists((args.outdir + "/" + "tiara_pred.txt")):
@@ -107,22 +118,13 @@ if args.train:
     print("Training successful...")
 
 if args.f:
-    print("Writing eukaryotic and prokaryotic contigs to separate fasta files. This can take very long...")
-    script_path = os.path.join(str(Path(__file__).parents[2]), "whokaryote_scripts/data", "get_euk_prok_fasta.sh")
+
+    print("Writing eukaryotic and prokaryotic contigs to separate fasta files.")
+    filtered_contigs = os.path.join(args.outdir, "contigs" + str(args.minsize) + ".fasta")
     input_file = args.contigs
-    output_file = os.path.join(args.outdir, "lin_contigs.fasta")
     euk_headers = os.path.join(args.outdir, "eukaryote_contig_headers.txt")
-    prok_headers = os.path.join(args.outdir, "prokaryote_contig_headers.txt")
-    euk_fasta = os.path.join(args.outdir, "eukaryotic_contigs.fasta")
-    prok_fasta = os.path.join(args.outdir, "prokaryotic_contigs.fasta")
 
-    subprocess.run(
-        ["bash", script_path,
-         input_file,
-         output_file,
-         euk_headers,
-         prok_headers,
-         euk_fasta,
-         prok_fasta])
+    split_fasta_taxonomy(fasta_file=filtered_contigs, outdir=args.outdir, headerfile=euk_headers)
 
-    print("Writing contigs to separate fastas (eukaryote, prokaryote) successful.")
+    print("Writing contigs to separate fastas (eukaryotes.fasta, prokaryotes.fasta) successful. \nThese files were made"
+          " from the size-filtered contigs and not from the original file.")
