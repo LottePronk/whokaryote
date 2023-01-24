@@ -8,7 +8,7 @@ setuptools.setup(
     version="1.1.0",
     author="Lotte Pronk",
     author_email="lotte.pronk@wur.nl",
-    description="Whokaryote: A fast and easy tool to predict if a metagenomic contig is eukaryotic or prokaryotic",
+    description="Whokaryote: A fast and easy tool to predict if a metagenomic contig is eukaryotic or prokaryotic.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://git.wageningenur.nl/lotte.pronk/whokaryote",
