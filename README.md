@@ -7,7 +7,8 @@ You can use Whokaryote to determine which contigs need eukaryotic gene predictio
 
 Issues can be created via GitHub: https://github.com/LottePronk/whokaryote
 
-###### If you have used Whokaryote in your work, please cite our paper:
+## Cite
+If you have used Whokaryote in your work, please cite our paper:
 Pronk, Lotte J U, and Marnix H Medema. “Whokaryote: distinguishing eukaryotic and prokaryotic contigs in metagenomes based on gene structure.” _Microbial genomics_ vol. 8,5 (2022): https://doi.org/10.1099/mgen.0.000823
 
 ---
@@ -18,7 +19,7 @@ Whokaryote was developed to run from the commandline on a UNIX-based system such
 If you want to use Whokaryote on your Windows PC, we recommend you install Windows Subsystem for Linux (WSL). See
 https://docs.microsoft.com/en-us/windows/wsl/about
 
-###### Recommended installation (Linux/Mac):
+### Recommended installation (Linux/Mac):
 
 You can now easily install whokaryote via conda (or mamba).
 
@@ -26,18 +27,13 @@ You can now easily install whokaryote via conda (or mamba).
 
 Simply use the following command while in a (dedicated) conda environment:
 
-`conda install -c bioconda whokaryote`
+`conda create -c bioconda -n whokaryote whokaryote`
 
 Are you new to using conda?
 You can download miniconda here: https://docs.conda.io/en/latest/miniconda.html
 
-Make a new and empty conda environment, and activate it:
-   - `conda create -n whokaryote python==3.8`
-   - `conda activate whokaryote`
-   - `conda install -c bioconda whokaryote`
 
-
-###### Alternative installation for Windows:
+### Alternative installation for Windows:
 Alternatively, you can install Whokaryote and its dependencies in a conda environment in Windows, see the instructions.
 You can download miniconda here: https://docs.conda.io/en/latest/miniconda.html
 
@@ -45,14 +41,12 @@ You can download miniconda here: https://docs.conda.io/en/latest/miniconda.html
    - `conda create -n whokaryote python==3.8`
    - `conda activate whokaryote`
 
-
 2. Install dependencies with these commands:
    - `python -m pip install tiara` (see: https://github.com/ibe-uw/tiara)
    - download the windows binary of prodigal from the following link:
 https://github.com/hyattpd/Prodigal/releases/tag/v2.6.3
    - change the file name: `move prodigal.windows.exe prodigal.exe`
    - move the file to the directory from where you run whokaryote. 
-   
 
 3. Install whokaryote:
    - Navigate to a directory you want to install whokaryote in.
@@ -62,6 +56,7 @@ https://github.com/hyattpd/Prodigal/releases/tag/v2.6.3
    - Install whokaryote in your (conda) environment with`python setup.py install`
 
 ---
+
 ## Using whokaryote
 
 Use `whokaryote.py --help` to see all the options:
