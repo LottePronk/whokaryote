@@ -13,7 +13,7 @@ parser.add_argument("--outdir", help="Specify the path to your preferred output 
 parser.add_argument("--prodigal_file", help="If you already have prodigal gene predictions, specify path to the "
                                             ".genes or .gff file")
 parser.add_argument("--f", action='store_true', help="If you want new multifastas with only eukaryotes and only "
-                                                     "prokaryotes. This can take a long time.")
+                                                     "prokaryotes.")
 parser.add_argument("--test", action='store_true', help="If you want to test it on a known dataset.")
 parser.add_argument("--train", help="For training an RF on your own dataset. Provide name of RF output file.")
 parser.add_argument("--minsize", default=5000, help="Select a minimum contig size in bp, default = 5000. Accuracy on \
