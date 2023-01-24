@@ -21,10 +21,9 @@ https://docs.microsoft.com/en-us/windows/wsl/about
 
 ### Recommended installation (Linux/Mac):
 
-You can now easily install whokaryote via conda (or mamba).
-
 [![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](http://bioconda.github.io/recipes/whokaryote/README.html)
 
+You can now easily install whokaryote via conda (or mamba).
 Simply use the following command while in a (dedicated) conda environment:
 
 `conda create -c bioconda -n whokaryote whokaryote`
