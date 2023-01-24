@@ -18,11 +18,27 @@ Whokaryote was developed to run from the commandline on a UNIX-based system such
 If you want to use Whokaryote on your Windows PC, we recommend you install Windows Subsystem for Linux (WSL). See
 https://docs.microsoft.com/en-us/windows/wsl/about
 
+###### Recommended installation (Linux/Mac):
+
+You can now easily install whokaryote via conda (or mamba).
+
+[![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](http://bioconda.github.io/recipes/whokaryote/README.html)
+
+Simply use the following command while in a (dedicated) conda environment:
+
+`conda install -c bioconda whokaryote`
+
+Are you new to using conda?
+You can download miniconda here: https://docs.conda.io/en/latest/miniconda.html
+
+Make a new and empty conda environment, and activate it:
+   - `conda create -n whokaryote python==3.8`
+   - `conda activate whokaryote`
+   - `conda install -c bioconda whokaryote`
+
+
+###### Alternative installation for Windows:
 Alternatively, you can install Whokaryote and its dependencies in a conda environment in Windows, see the instructions.
-
-###### Recommended installation:
-
-We recommend that you install whokaryote and its dependencies in a new conda environment.
 You can download miniconda here: https://docs.conda.io/en/latest/miniconda.html
 
 1. Make a new and empty conda environment, and activate it:
@@ -31,14 +47,9 @@ You can download miniconda here: https://docs.conda.io/en/latest/miniconda.html
 
 
 2. Install dependencies with these commands:
-
-    *Linux/MacOS*:
-   - `conda install -c bioconda prodigal`
-   - `python -m pip install tiara` (see: https://github.com/ibe-uw/tiara)  
-
-    *Windows*:
+   - `python -m pip install tiara` (see: https://github.com/ibe-uw/tiara)
    - download the windows binary of prodigal from the following link:
-   https://github.com/hyattpd/Prodigal/releases/tag/v2.6.3
+https://github.com/hyattpd/Prodigal/releases/tag/v2.6.3
    - change the file name: `move prodigal.windows.exe prodigal.exe`
    - move the file to the directory from where you run whokaryote. 
    
@@ -56,7 +67,7 @@ You can download miniconda here: https://docs.conda.io/en/latest/miniconda.html
 Use `whokaryote.py --help` to see all the options:
 ```
 -h, --help            show this help message and exit
---contigs CONTIGS     The path to your contigs file. It should be one multifasta (DNA).
+--contigs CONTIGS     The path to your contigs file. It should be one (multi)fasta (DNA).
 --outdir OUTDIR       Specify the path to your preferred output directory. No / at the end.
 --prodigal_file PRODIGAL_FILE
                         If you already have prodigal gene predictions, specify path to the .genes or .gff file
@@ -91,3 +102,5 @@ and a similar file for prokaryotic contig headers (prokaryote_contig_headers.txt
 - A file with the tiara predictions called tiara_pred.txt
 - A .csv file with the calculated features and the predictions called **featuretable_predictions_[model].tsv**
 - A .tsv file with only the contig ID and the predictions called **whokaryote_predictions_[model].tsv**
+
+Note that contigs with less than 2 genes or shorter than the minimum size are not classified and do not appear in the output.
