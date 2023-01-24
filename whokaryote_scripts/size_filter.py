@@ -20,8 +20,8 @@ def size_filter(contig_file, outdir, size):
                 if len(seq) < size:
                     removed_contigs += 1
                 if len(seq) > 32000000:
-                    print("Warning! sequence" + title + "is longer than 32000000 BP. If you did not provide a GFF\
-                     file, Prodigal will be used to predict genes. Prodigal does not accept sequences > 32 mbp!")
+                    print("Warning! sequence" + title + "is longer than 32000000 BP. If you did not provide a GFF"
+                     "file, Prodigal will be used to predict genes. Prodigal does not accept sequences > 32 mbp!")
 
             print("Total contigs checked:\t" + str(total_contigs),
                   '\nNumber of contigs >=' + str(size) + 'bp:\t' + str(kept_contigs),
