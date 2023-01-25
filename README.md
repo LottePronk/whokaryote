@@ -7,8 +7,9 @@ You can use Whokaryote to determine which contigs need eukaryotic gene predictio
 
 Issues can be created via GitHub: https://github.com/LottePronk/whokaryote
 
-## Cite
+## Publication
 If you have used Whokaryote in your work, please cite our paper:
+
 Pronk, Lotte J U, and Marnix H Medema. “Whokaryote: distinguishing eukaryotic and prokaryotic contigs in metagenomes based on gene structure.” _Microbial genomics_ vol. 8,5 (2022): https://doi.org/10.1099/mgen.0.000823
 
 ---
