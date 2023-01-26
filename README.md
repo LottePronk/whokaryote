@@ -24,8 +24,8 @@ https://docs.microsoft.com/en-us/windows/wsl/about
 
 [![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](http://bioconda.github.io/recipes/whokaryote/README.html)
 
-You can now easily install whokaryote via conda (or mamba).
-Simply use the following command while in a (dedicated) conda environment:
+You can now easily install Whokaryote via conda (or mamba).
+Simply use the following command to install Whokaryote in a (dedicated) conda environment:
 
 `conda create -c bioconda -n whokaryote whokaryote`
 
@@ -46,18 +46,18 @@ You can download miniconda here: https://docs.conda.io/en/latest/miniconda.html
    - download the windows binary of prodigal from the following link:
 https://github.com/hyattpd/Prodigal/releases/tag/v2.6.3
    - change the file name: `move prodigal.windows.exe prodigal.exe`
-   - move the file to the directory from where you run whokaryote. 
+   - move the file to the directory from where you run Whokaryote.
 
-3. Install whokaryote:
-   - Navigate to a directory you want to install whokaryote in.
-   - Clone whokaryote to this directory: `git clone https://git.wur.nl/lotte.pronk/whokaryote.git `
-   (or `git clone https://github.com/LottePronk/whokaryote.git` )
-   - Go to the whokaryote directory: `cd whokaryote`
-   - Install whokaryote in your (conda) environment with`python setup.py install`
+3. Install Whokaryote:
+   - Navigate to a directory you want to install Whokaryote in.
+   - Clone Whokaryote with this command: `git clone https://git.wur.nl/lotte.pronk/whokaryote.git`
+   (or `git clone https://github.com/LottePronk/whokaryote.git`)
+   - Go to the Whokaryote directory: `cd whokaryote`
+   - Install Whokaryote in your (conda) environment with `python setup.py install`
 
 ---
 
-## Using whokaryote
+## Using Whokaryote
 
 Use `whokaryote.py --help` to see all the options:
 ```
@@ -71,7 +71,7 @@ Use `whokaryote.py --help` to see all the options:
 --model MODEL         Choose the stand-alone model or the tiara-integrated model: S or T. Option 'T' only works with argument --contigs
 ```
 
-Note: When using Windows, you may need to run whokaryote from the commandline as follows:
+Note: When using Windows, you may need to run Whokaryote from the commandline as follows:
 `python whokaryote\bin\whokaryote.py [options]` 
 ### Example:
 
