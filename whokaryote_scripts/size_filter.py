@@ -30,22 +30,38 @@ def size_filter(contig_file, outdir, size):
             if kept_contigs == 0:
                 sys.exit("No contigs longer than" + str(size) + "bp detected.\nYour contigs cannot be classified.")
 
-def split_fasta_taxonomy(fasta_file, outdir, headerfile):
+def split_fasta_taxonomy(fasta_file, outdir):
     """
     Split fasta file into separate files for each taxonomy.
     output: outdir/eukaryote.fasta, outdir/prokaryote.fasta
     """
+    eukaryote_headers = os.path.join(outdir, "eukaryote_contig_headers.txt")
+    prokaryote_headers = os.path.join(outdir, "prokaryote_contig_headers.txt")
 
-    euk_file = open(headerfile, "r")
+    euk_file = open(eukaryote_headers, "r")
     euk_headers = euk_file.read()
     euk_headers_list = euk_headers.split("\n")  # list of all eukaryote headers
     euk_file.close()
 
+    prok_file = open(prokaryote_headers, "r")
+    prok_headers = prok_file.read()
+    prok_headers_list = prok_headers.split("\n")  # list of all prokaryote headers
+    prok_file.close()
+
+    counter = 0
     with open(fasta_file, "r") as f:
         for title, seq in SimpleFastaParser(f):
-            if title in euk_headers_list:
-                with open(os.path.join(outdir, "eukaryotes.fasta"), "a") as g:
-                    g.write(">" + title + "\n" + seq + "\n")
+            if counter > 10:
+                print("breaking")
+                break
+            counter += 1
+            title_id = title.split(" ")[0]
+            if title_id in euk_headers_list:
+                with open(os.path.join(outdir, "eukaryotes.fasta"), "a") as euk:
+                    euk.write(">" + title + "\n" + seq + "\n")
+            elif title_id in prok_headers_list:
+                with open(os.path.join(outdir, "prokaryotes.fasta"), "a") as prok:
+                    prok.write(">" + title + "\n" + seq + "\n")
             else:
-                with open(os.path.join(outdir, "prokaryotes.fasta"), "a") as g:
-                    g.write(">" + title + "\n" + seq + "\n")
+                with open(os.path.join(outdir, "unclassified.fasta"), "a") as unclass:
+                    unclass.write(">" + title + "\n" + seq + "\n")

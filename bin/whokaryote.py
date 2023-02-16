@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Main script that will be used on the commandline.
+# Main script that wi160223ll be used on the commandline.
 
 from whokaryote_scripts import *
 import argparse
@@ -121,10 +121,7 @@ if args.f:
 
     print("Writing eukaryotic and prokaryotic contigs to separate fasta files.")
     filtered_contigs = os.path.join(args.outdir, "contigs" + str(args.minsize) + ".fasta")
-    input_file = args.contigs
-    euk_headers = os.path.join(args.outdir, "eukaryote_contig_headers.txt")
-
-    split_fasta_taxonomy(fasta_file=filtered_contigs, outdir=args.outdir, headerfile=euk_headers)
+    split_fasta_taxonomy(fasta_file=filtered_contigs, outdir=args.outdir)
 
     print("Writing contigs to separate fastas (eukaryotes.fasta, prokaryotes.fasta) successful. \nThese files were made"
           " from the size-filtered contigs and not from the original file.")
