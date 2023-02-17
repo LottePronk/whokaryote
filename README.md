@@ -64,8 +64,7 @@ Use `whokaryote.py --help` to see all the options:
 -h, --help            show this help message and exit
 --contigs CONTIGS     The path to your contigs file. It should be one (multi)fasta (DNA).
 --outdir OUTDIR       Specify the path to your preferred output directory. No / at the end.
---prodigal_file PRODIGAL_FILE
-                        If you already have prodigal gene predictions, specify path to the .genes or .gff file
+--gff GFF             If you already have gene predictions, specify path to the .gff file"
 --f                   If you want new multifastas with only eukaryotes and only prokaryotes. This can take a long time.
 --minsize MINSIZE     Select a minimum contig size in bp, default = 5000. Accuracy on contigs below 5000 is lower.
 --model MODEL         Choose the stand-alone model or the tiara-integrated model: S or T. Option 'T' only works with argument --contigs
