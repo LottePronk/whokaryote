@@ -10,8 +10,8 @@ import time
 parser = argparse.ArgumentParser(description="Classify metagenomic contigs as eukaryotic or prokaryotic")
 parser.add_argument("--contigs", help="The path to your contigs file. It should be one (multi)fasta (DNA).")
 parser.add_argument("--outdir", help="Specify the path to your preferred output directory. No / at the end.")
-parser.add_argument("--prodigal_file", help="If you already have prodigal gene predictions, specify path to the "
-                                            ".genes or .gff file")
+parser.add_argument("--prodigal_file", help=argparse.SUPPRESS)
+parser.add_argument("--gff", help="If you already have gene predictions, specify path to the .gff file")
 parser.add_argument("--f", action='store_true', help="If you want new multifastas with only eukaryotes and only "
                                                      "prokaryotes.")
 parser.add_argument("--test", action='store_true', help="If you want to test it on a known dataset.")
@@ -25,6 +25,10 @@ parser.add_argument("--threads", default="1", help="Number of threads for Tiara 
 #  @TODO: integrate log file option into code..
 
 args = parser.parse_args()
+
+if args.prodigal_file:
+    print("You are using the --prodigal_file option, which still works but is hidden and replaced with the --gff option.")
+    args.gff = args.prodigal_file
 
 if not args.outdir:
     print("Please specify an output directory with the option --outdir.")
@@ -66,8 +70,8 @@ if args.contigs:
             print("Model with tiara predictions selected.\nRunning tiara with " + args.threads + " threads...")
             run_tiara(filtered_contigs, args.outdir, args.threads)
 
-    if args.prodigal_file:
-        gene_predictions = args.prodigal_file
+    if args.gff:
+        gene_predictions = args.gff
     else:
         print("Running prodigal...")
         prodigal_start = time.time()
@@ -80,8 +84,8 @@ if args.contigs:
 
 if not args.contigs:
     print("No contig fasta was provided.")
-    if args.prodigal_file:
-        gene_predictions = args.prodigal_file
+    if args.gff:
+        gene_predictions = args.gff
     else:
         print("No gene predictions found. Provide contig fasta or prodigal output file.")
         quit()
