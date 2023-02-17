@@ -48,13 +48,8 @@ def split_fasta_taxonomy(fasta_file, outdir):
     prok_headers_list = prok_headers.split("\n")  # list of all prokaryote headers
     prok_file.close()
 
-    counter = 0
     with open(fasta_file, "r") as f:
         for title, seq in SimpleFastaParser(f):
-            if counter > 10:
-                print("breaking")
-                break
-            counter += 1
             title_id = title.split(" ")[0]
             if title_id in euk_headers_list:
                 with open(os.path.join(outdir, "eukaryotes.fasta"), "a") as euk:
